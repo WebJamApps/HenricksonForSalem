@@ -3,8 +3,6 @@
  * @description Main application layout for Mark Henrickson for Salem City Council campaign.
  */
 
-import { InvolvementForm } from './InvolvementForm';
-
 export function App() {
   return (
     <div className="campaign-container">
@@ -228,8 +226,15 @@ export function App() {
         </section>
 
         {/* Get Involved Section */}
-        <section className="join-section">
-          <InvolvementForm />
+        <section id="join" className="join-section">
+          <div className="section-header">
+            <span className="section-subtitle">GET INVOLVED</span>
+            <h2 className="section-title">Join the Campaign</h2>
+            <div className="section-divider"></div>
+          </div>
+          <p className="join-placeholder">
+            Want to help? Ways to volunteer are coming soon.
+          </p>
         </section>
 
       </main>

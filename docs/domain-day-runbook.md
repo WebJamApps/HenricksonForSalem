@@ -8,6 +8,7 @@ Dashboard UIs drift — if the screen doesn't match a step, ask what Mark actual
 
 ## Prerequisites (must be true from tonight, before 8am)
 
+- [ ] **FIRST, every time the dashboard is opened: check the account picker (top of the left sidebar) shows the RIGHT account.** Josh's login can also see Tim's account — on 2026-07-07 the dashboard landed on Tim's account and the Pages setup was nearly done there. Before any step below, confirm the picker shows the campaign account (Josh's email tonight; Mark's after the swap).
 - [ ] A Cloudflare account exists under **Josh's email** (temporary owner); its temp password is in Josh's KeePass.
 - [ ] A Cloudflare Pages project named `henricksonforsalem` is connected to the `WebJamApps/HenricksonForSalem` repo.
 - [ ] The scaffold site is live at https://henricksonforsalem.pages.dev (open it and check before the session).
