@@ -12,7 +12,8 @@ Dashboard UIs drift — if the screen doesn't match a step, ask what Mark actual
 - [ ] A Cloudflare account exists under **Josh's email** (temporary owner); its temp password is in Josh's KeePass.
 - [ ] A Cloudflare Pages project named `henricksonforsalem` is connected to the `WebJamApps/HenricksonForSalem` repo.
 - [ ] The scaffold site is live at https://henricksonforsalem.pages.dev (open it and check before the session).
-- [ ] Mark has his **phone with access to his email inbox** (needed to confirm the email swap).
+- [ ] Mark has his **phone with access to his email inbox** (`henmark1@aol.com`, needed to confirm the email swap).
+- [ ] Jodi (`jrhenrickson@gmail.com`) is ideally reachable on her phone to accept the member invite in step 3b — fine if not, the invite can be accepted later.
 - [ ] Mark has his **payment card** with him.
 - [ ] Josh has **KeePass open** — every credential created below gets saved the moment it's created.
 
@@ -23,7 +24,7 @@ Dashboard UIs drift — if the screen doesn't match a step, ask what Mark actual
 1. Josh logs in at https://dash.cloudflare.com with his (temporary) credentials.
 2. Click the **person icon** (top-right) → **My Profile**.
 3. On the profile page find the **Email Address** section (Communication/Preferences area) → click **Change Email Address**.
-4. Enter Mark's email address (twice, if asked) and Cloudflare's current password, then confirm.
+4. Enter Mark's email address `henmark1@aol.com` (twice, if asked) and Cloudflare's current password, then confirm.
 5. Cloudflare sends a **confirmation link to Mark's email** — Mark opens it on his phone and clicks the link.
    (Delays? See Troubleshooting below.)
 6. Verify: the profile page now shows Mark's email as the account email.
@@ -42,6 +43,18 @@ Dashboard UIs drift — if the screen doesn't match a step, ask what Mark actual
 2. Open the **Payment info** tab → **Add payment method** (or Edit).
 3. Mark enters **his own card** and billing address → Save.
 4. Verify: the card on file shows Mark's card. From here on, everything (domain, renewals) bills to Mark.
+
+### 3b. Invite Jodi as a billing-only member
+
+Jodi gets her own login that can see/edit **billing and payment info only** — no DNS,
+no Pages, nothing else. No shared passwords.
+
+1. Still under **Manage Account**, open **Members** → **Invite**.
+2. Enter Jodi's email `jrhenrickson@gmail.com`, set the role to **Billing**, and send the invite.
+3. Jodi opens the invite email on her phone, accepts, and creates her **own Cloudflare password**.
+4. **KeePass now:** Jodi saves her password in her own password manager (or Josh KeePasses it and hands it over securely later).
+5. Verify: the Members list shows Jodi with the **Billing** role.
+6. If Jodi isn't available at 8am, send the invite anyway — she can accept later from her inbox.
 
 ### 4. Search and register the domain (Cloudflare Registrar, at-cost)
 
@@ -74,7 +87,7 @@ Done: the account, the card, and the domain are all Mark's; the site is live on 
 
 ## Troubleshooting: email-confirmation delays
 
-- The step-1 confirmation email can take a few minutes — have Mark **check Spam/Promotions** and search his inbox for "Cloudflare".
+- The step-1 confirmation email can take a few minutes — have Mark **check Spam/Promotions** and search his inbox for "Cloudflare". Mark's inbox is AOL, which filters aggressively — check the Spam folder early.
 - Still nothing after ~5 minutes: go back to My Profile and use the **resend** option (or redo Change Email Address — double-check the address for typos).
 - Confirmation links **expire** — if one is old, resend rather than clicking a stale link.
 - Do **not** create a second Cloudflare account with Mark's email while waiting; that address then can't be used for the swap. If that happens accidentally, delete the new account first (its My Profile → Delete this account), then resend the confirmation.
