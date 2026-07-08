@@ -1,11 +1,10 @@
 /**
  * @file index.tsx
- * @description Tim Sherman Music booking and contact form component.
- * Reuses the inquiry submission pattern from JaMmusic, customized for Tim's fields and scoped to artist 'tim'.
+ * @description Involvement and contact form component for Mark Henrickson for Salem City Council.
  */
 
 import { useState, ChangeEvent, FormEvent } from 'react';
-import './booking-form.css';
+import './involvement-form.css';
 
 declare const process: {
   env: {
@@ -13,22 +12,22 @@ declare const process: {
   };
 };
 
-export interface IBookingFormData {
-  artist: string;
+export interface IInvolvementFormData {
+  campaign: string;
   name: string;
   email: string;
   phone: string;
-  eventDate: string;
+  involvementType: string;
   message: string;
 }
 
-export function BookingForm() {
-  const [formData, setFormData] = useState<IBookingFormData>({
-    artist: 'tim',
+export function InvolvementForm() {
+  const [formData, setFormData] = useState<IInvolvementFormData>({
+    campaign: 'henrickson',
     name: '',
     email: '',
     phone: '',
-    eventDate: '',
+    involvementType: 'volunteer',
     message: '',
   });
 
@@ -44,17 +43,17 @@ export function BookingForm() {
 
   // Client-side validation function to toggle the submit button and provide feedback
   const isFormInvalid = (): boolean => {
-    const { name, email, phone, eventDate, message } = formData;
+    const { name, email, phone, involvementType, message } = formData;
     if (!name.trim()) return true;
     if (!validateEmail(email)) return true;
     if (!phone.trim()) return true;
-    if (!eventDate) return true;
+    if (!involvementType) return true;
     if (!message.trim()) return true;
     return false;
   };
 
   function handleInputChange(
-    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    evt: ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) {
     const { id, value } = evt.target;
     setFormData(prev => ({
@@ -80,7 +79,14 @@ export function BookingForm() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          artist: formData.campaign, // Map to artist field for backward compatibility with backend
+          name: formData.name,
+          email: formData.email,
+          phone: formData.phone,
+          eventDate: new Date().toISOString().split('T')[0], // Map to eventDate for backend compatibility
+          message: `[Involvement Type: ${formData.involvementType}] ${formData.message}`,
+        }),
       });
 
       if (!res.ok) {
@@ -91,7 +97,7 @@ export function BookingForm() {
     } catch (err) {
       console.error('Submission failed:', err);
       setSubmitError(
-        'Sorry, we could not deliver your inquiry at this moment. Please try again, or email us directly.'
+        'Sorry, we could not deliver your message at this moment. Please try again, or email us directly.'
       );
     } finally {
       setIsSubmitting(false);
@@ -100,11 +106,11 @@ export function BookingForm() {
 
   const handleReset = () => {
     setFormData({
-      artist: 'tim',
+      campaign: 'henrickson',
       name: '',
       email: '',
       phone: '',
-      eventDate: '',
+      involvementType: 'volunteer',
       message: '',
     });
     setHasSubmitted(false);
@@ -119,7 +125,7 @@ export function BookingForm() {
 
   if (hasSubmitted) {
     return (
-      <div className="booking-card success-card" role="alert" aria-live="polite">
+      <div className="involvement-card success-card" role="alert" aria-live="polite" id="join">
         <div className="success-icon-wrapper">
           <svg
             className="success-svg"
@@ -134,27 +140,28 @@ export function BookingForm() {
             <polyline points="20 6 9 17 4 12" />
           </svg>
         </div>
-        <h2 className="success-title">Inquiry Sent!</h2>
+        <h2 className="success-title">Thank You, Salem!</h2>
         <p className="success-message">
-          Thank you for reaching out to book Tim. Your request has been received, and we will get back to you as soon as possible.
+          Your message has been received! Together, we can make a difference in Salem. We will be in touch with you shortly.
         </p>
         <button
           onClick={handleReset}
           className="reset-button btn-premium"
           type="button"
+          id="btn-reset-form"
         >
-          Send Another Inquiry
+          Send Another Message
         </button>
       </div>
     );
   }
 
   return (
-    <div className="booking-card">
-      <div className="booking-header">
-        <h2 className="booking-title">Book Tim Sherman</h2>
-        <p className="booking-subtitle">
-          Fill out the form below to book Tim for your next event or get in touch.
+    <div className="involvement-card" id="join">
+      <div className="involvement-header">
+        <h2 className="involvement-title">Join the Campaign</h2>
+        <p className="involvement-subtitle">
+          Be a part of building a stronger, safer, and more vibrant Salem. Let us know how you'd like to get involved!
         </p>
       </div>
 
@@ -162,15 +169,15 @@ export function BookingForm() {
         <div className="error-alert" role="alert">
           <p className="error-text">{submitError}</p>
           <p className="error-fallback">
-            Direct Booking Email:{' '}
-            <a href="mailto:joshua.v.sherman@gmail.com" className="email-link">
-              joshua.v.sherman@gmail.com
+            Direct Campaign Email:{' '}
+            <a href="mailto:info@henricksonforsalem.com" className="email-link">
+              info@henricksonforsalem.com
             </a>
           </p>
         </div>
       )}
 
-      <form id="booking-contact-form" onSubmit={handleSubmit} noValidate className="booking-form-element">
+      <form id="campaign-involvement-form" onSubmit={handleSubmit} noValidate className="involvement-form-element">
         <div className="form-grid">
           {/* Name Field */}
           <div className="form-group full-width">
@@ -229,35 +236,39 @@ export function BookingForm() {
             />
           </div>
 
-          {/* Event Date Field */}
+          {/* Involvement Type */}
           <div className="form-group full-width">
-            <label htmlFor="eventDate" className="form-label">
-              Event Date <span className="required-asterisk">*</span>
+            <label htmlFor="involvementType" className="form-label">
+              How would you like to get involved? <span className="required-asterisk">*</span>
             </label>
-            <input
-              type="date"
-              id="eventDate"
-              aria-label="Event Date"
-              value={formData.eventDate}
+            <select
+              id="involvementType"
+              aria-label="How would you like to get involved?"
+              value={formData.involvementType}
               onChange={handleInputChange}
-              className={`form-input ${formData.eventDate ? 'is-valid' : ''}`}
+              className="form-input form-select"
               required
               disabled={isSubmitting}
-            />
+            >
+              <option value="volunteer">Volunteer on the campaign team</option>
+              <option value="yardSign">Request a Yard Sign</option>
+              <option value="host">Host a Meet & Greet</option>
+              <option value="subscribe">Stay updated via email</option>
+            </select>
           </div>
 
           {/* Message Field */}
           <div className="form-group full-width">
             <label htmlFor="message" className="form-label">
-              Message & Event Details <span className="required-asterisk">*</span>
+              Message or Notes <span className="required-asterisk">*</span>
             </label>
             <textarea
               id="message"
-              aria-label="Message & Event Details"
+              aria-label="Message or Notes"
               value={formData.message}
               onChange={handleInputChange}
               className={`form-input form-textarea ${formData.message.trim() ? 'is-valid' : ''}`}
-              placeholder="Tell us about your event (venue, duration, expectations, etc.)..."
+              placeholder="Let us know how you would like to help, ask any questions, or suggest ideas..."
               required
               disabled={isSubmitting}
               rows={4}
@@ -271,6 +282,7 @@ export function BookingForm() {
           </span>
           <button
             type="submit"
+            id="btn-submit-form"
             disabled={isFormInvalid() || isSubmitting}
             className={`btn-premium submit-button ${isSubmitting ? 'is-loading' : ''}`}
           >
@@ -280,7 +292,7 @@ export function BookingForm() {
                 Sending...
               </>
             ) : (
-              'Submit Booking Request'
+              'Submit Request'
             )}
           </button>
         </div>
