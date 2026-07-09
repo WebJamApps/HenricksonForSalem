@@ -24,7 +24,7 @@ describe('App', () => {
   it('renders the footer social-link placeholders and disclosure', () => {
     render(<App />);
     expect(screen.getByLabelText('Facebook')).toBeInTheDocument();
-    expect(screen.getByLabelText('Twitter/X')).toBeInTheDocument();
+    expect(screen.getByLabelText('YouTube')).toBeInTheDocument();
     expect(screen.getByLabelText('Instagram')).toBeInTheDocument();
     expect(screen.getByText('PAID FOR BY THE COMMITTEE TO ELECT MARK HENRICKSON')).toBeInTheDocument();
   });
