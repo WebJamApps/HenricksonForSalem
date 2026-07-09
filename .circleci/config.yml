@@ -25,7 +25,34 @@ jobs:
             rm -rf node_modules package-lock.json
             npm install --omit=dev
 
+  # Deploy to Cloudflare Pages — ONLY from `main`, only after `build` (tests)
+  # passes. Mirrors the web-jam-tools#130 pattern (CI as the single deploy
+  # gate) — deliberately NOT Cloudflare's GitHub integration, which deploys
+  # independently of CI. Auth via the CLOUDFLARE_API_TOKEN + CLOUDFLARE_ACCOUNT_ID
+  # CircleCI project env vars (see README "Deploying" section).
+  deploy:
+    docker:
+      - image: cimg/node:24.18-browsers
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: npm ci
+      - run:
+          name: Build
+          command: npm run build
+      - run:
+          name: Deploy to Cloudflare Pages
+          command: npx wrangler pages deploy dist --project-name henricksonforsalem --branch main
+
 workflows:
   build-and-test:
     jobs:
       - build
+      - deploy:
+          requires:
+            - build
+          filters:
+            branches:
+              only: main

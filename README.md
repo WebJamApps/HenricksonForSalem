@@ -24,7 +24,12 @@ npm run build      # production build to dist/
 
 ## Deploying
 
-Deploys are manual for now, via Wrangler:
+Deploys are automatic: CircleCI's `deploy` job runs on `main` after the
+`build` (test) job passes, and pushes `dist/` to Cloudflare Pages via
+Wrangler. Red tests block the deploy. Auth comes from the
+`CLOUDFLARE_API_TOKEN` + `CLOUDFLARE_ACCOUNT_ID` CircleCI project env vars.
+
+For a manual/fallback deploy:
 
 ```sh
 npm run build
