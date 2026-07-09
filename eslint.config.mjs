@@ -48,7 +48,11 @@ export default [
   {
     files: ['**/*.{ts,tsx}'],
     plugins: { sonarjs },
-    rules: sonarjsWarn,
+    rules: {
+      ...sonarjsWarn,
+      'sonarjs/file-header': 'off',
+      'sonarjs/no-implicit-dependencies': 'off',
+    },
   },
   {
     files: ['**/*.{ts,tsx}'],
