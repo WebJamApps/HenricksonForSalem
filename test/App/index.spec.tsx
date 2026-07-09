@@ -1,6 +1,10 @@
 import { render, screen, fireEvent, act } from '@testing-library/react';
 import { App } from 'src/App';
-import { expect, describe, it, vi } from 'vitest';
+import { expect, describe, it, vi, beforeEach } from 'vitest';
+import { axe } from 'vitest-axe';
+import * as axeMatchers from 'vitest-axe/matchers.js';
+
+expect.extend(axeMatchers);
 
 describe('App', () => {
   it('renders the static campaign page sections', () => {
@@ -15,10 +19,11 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Join the Campaign' })).toBeInTheDocument();
     expect(screen.getByText('Want to help? Ways to volunteer are coming soon.')).toBeInTheDocument();
 
-    // Purely static: no form fields, no buttons anywhere on the page
+    // Purely static: no form fields, no buttons anywhere on the page besides the theme toggle
     expect(document.querySelector('form')).toBeNull();
     expect(document.querySelector('input, select, textarea')).toBeNull();
-    expect(screen.queryByRole('button')).not.toBeInTheDocument();
+    expect(screen.getByRole('button', { name: /Switch to (dark|light) theme/i })).toBeInTheDocument();
+    expect(screen.queryAllByRole('button')).toHaveLength(1);
   });
 
   it('renders the footer social-link placeholders and disclosure', () => {
@@ -67,5 +72,77 @@ describe('App', () => {
     unmount();
     expect(clearIntervalSpy).toHaveBeenCalled();
     vi.useRealTimers();
+  });
+
+  describe('theme selector and accessibility', () => {
+    beforeEach(() => {
+      localStorage.clear();
+      document.documentElement.removeAttribute('data-theme');
+    });
+
+    it('supports toggling and persisting theme', () => {
+      const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
+      render(<App />);
+
+      const toggleBtn = screen.getByRole('button', { name: 'Switch to dark theme' });
+      expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+
+      // Toggle to dark
+      fireEvent.click(toggleBtn);
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+      expect(setItemSpy).toHaveBeenCalledWith('theme', 'dark');
+      expect(screen.getByRole('button', { name: 'Switch to light theme' })).toBeInTheDocument();
+
+      // Toggle back to light
+      fireEvent.click(toggleBtn);
+      expect(document.documentElement.getAttribute('data-theme')).toBe('light');
+      expect(setItemSpy).toHaveBeenCalledWith('theme', 'light');
+      expect(screen.getByRole('button', { name: 'Switch to dark theme' })).toBeInTheDocument();
+
+      setItemSpy.mockRestore();
+    });
+
+    it('respects prefers-color-scheme if no localStorage is set', () => {
+      const originalMatchMedia = window.matchMedia;
+      window.matchMedia = vi.fn().mockImplementation(query => ({
+        matches: query === '(prefers-color-scheme: dark)',
+        media: query,
+        onchange: null,
+        addListener: vi.fn(),
+        removeListener: vi.fn(),
+        addEventListener: vi.fn(),
+        removeEventListener: vi.fn(),
+        dispatchEvent: vi.fn(),
+      }));
+
+      render(<App />);
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+
+      if (originalMatchMedia) {
+        window.matchMedia = originalMatchMedia;
+      } else {
+        // @ts-expect-error delete non-optional
+        delete window.matchMedia;
+      }
+    });
+
+    it('loads theme from localStorage', () => {
+      localStorage.setItem('theme', 'dark');
+      render(<App />);
+      expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
+    });
+
+    it('has no axe accessibility violations in light theme', async () => {
+      const { container } = render(<App />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no axe accessibility violations in dark theme', async () => {
+      localStorage.setItem('theme', 'dark');
+      const { container } = render(<App />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
   });
 });

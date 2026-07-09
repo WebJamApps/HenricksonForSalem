@@ -7,6 +7,28 @@ import { useState, useEffect } from 'react';
 
 export function App() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [theme, setTheme] = useState<'light' | 'dark'>(() => {
+    if (typeof window !== 'undefined') {
+      const saved = localStorage.getItem('theme');
+      if (saved === 'light' || saved === 'dark') {
+        return saved;
+      }
+      if (typeof window.matchMedia === 'function' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+        return 'dark';
+      }
+    }
+    return 'light';
+  });
+
+  useEffect(() => {
+    document.documentElement.setAttribute('data-theme', theme);
+  }, [theme]);
+
+  const toggleTheme = () => {
+    const nextTheme = theme === 'light' ? 'dark' : 'light';
+    setTheme(nextTheme);
+    localStorage.setItem('theme', nextTheme);
+  };
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -35,6 +57,50 @@ export function App() {
             <a href="#about" className="nav-link">Meet Mark</a>
             <a href="#platform" className="nav-link">Platform</a>
             <a href="#join" className="nav-btn-link">Get Involved</a>
+            <button
+              onClick={toggleTheme}
+              className="theme-toggle-btn"
+              aria-label={theme === 'light' ? 'Switch to dark theme' : 'Switch to light theme'}
+              type="button"
+            >
+              {theme === 'light' ? (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
+                </svg>
+              ) : (
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="20"
+                  height="20"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                >
+                  <circle cx="12" cy="12" r="5" />
+                  <line x1="12" y1="1" x2="12" y2="3" />
+                  <line x1="12" y1="21" x2="12" y2="23" />
+                  <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+                  <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+                  <line x1="1" y1="12" x2="3" y2="12" />
+                  <line x1="21" y1="12" x2="23" y2="12" />
+                  <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+                  <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
+                </svg>
+              )}
+            </button>
           </nav>
         </div>
       </header>
@@ -71,20 +137,35 @@ export function App() {
                 aria-hidden={activeSlide !== 0}
               >
                 <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="#f8fafc" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="#1d3557" strokeWidth="2" strokeDasharray="4 4" />
+                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
+                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
                   {/* Community graphic representation */}
-                  <circle cx="250" cy="160" r="60" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <path d="M190 260C190 210 210 200 250 200C290 200 310 210 310 260" stroke="#1d3557" strokeWidth="2.5" fill="#f1f5f9" />
-                  <circle cx="170" cy="180" r="40" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <path d="M130 270C130 220 145 215 170 215C195 215 210 220 210 270" stroke="#1d3557" strokeWidth="2" fill="#f1f5f9" />
-                  <circle cx="330" cy="180" r="40" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <path d="M290 270C290 220 305 215 330 215C355 215 370 220 370 270" stroke="#1d3557" strokeWidth="2" fill="#f1f5f9" />
+                  <circle cx="250" cy="160" r="60" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <path
+                    d="M190 260C190 210 210 200 250 200C290 200 310 210 310 260"
+                    stroke="var(--color-primary)"
+                    strokeWidth="2.5"
+                    fill="var(--bg-tertiary)"
+                  />
+                  <circle cx="170" cy="180" r="40" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <path
+                    d="M130 270C130 220 145 215 170 215C195 215 210 220 210 270"
+                    stroke="var(--color-primary)"
+                    strokeWidth="2"
+                    fill="var(--bg-tertiary)"
+                  />
+                  <circle cx="330" cy="180" r="40" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <path
+                    d="M290 270C290 220 305 215 330 215C355 215 370 220 370 270"
+                    stroke="var(--color-primary)"
+                    strokeWidth="2"
+                    fill="var(--bg-tertiary)"
+                  />
                   {/* Sparingly used Red Accent details */}
-                  <circle cx="250" cy="160" r="6" fill="#e63946" />
-                  <circle cx="170" cy="180" r="4" fill="#e63946" />
-                  <circle cx="330" cy="180" r="4" fill="#e63946" />
-                  <path d="M230 110L250 90L270 110" stroke="#e63946" strokeWidth="2" strokeLinecap="round" />
+                  <circle cx="250" cy="160" r="6" fill="var(--color-accent-red)" />
+                  <circle cx="170" cy="180" r="4" fill="var(--color-accent-red)" />
+                  <circle cx="330" cy="180" r="4" fill="var(--color-accent-red)" />
+                  <path d="M230 110L250 90L270 110" stroke="var(--color-accent-red)" strokeWidth="2" strokeLinecap="round" />
                 </svg>
                 <div className="slide-overlay">
                   <span className="slide-label">COMMUNITY ENGAGEMENT</span>
@@ -98,17 +179,17 @@ export function App() {
                 aria-hidden={activeSlide !== 1}
               >
                 <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="#f8fafc" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="#1d3557" strokeWidth="2" strokeDasharray="4 4" />
+                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
+                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
                   {/* Public Parks graphic representation */}
-                  <path d="M50 300C120 280 200 310 280 290C360 270 420 310 450 300" stroke="#1d3557" strokeWidth="2.5" />
-                  <path d="M120 290V190C120 160 180 160 180 190V295" stroke="#1d3557" strokeWidth="2" fill="#f1f5f9" />
-                  <circle cx="150" cy="140" r="30" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
+                  <path d="M50 300C120 280 200 310 280 290C360 270 420 310 450 300" stroke="var(--color-primary)" strokeWidth="2.5" />
+                  <path d="M120 290V190C120 160 180 160 180 190V295" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-tertiary)" />
+                  <circle cx="150" cy="140" r="30" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
                   {/* Sparingly used Red Accent details */}
-                  <circle cx="150" cy="140" r="5" fill="#e63946" />
-                  <path d="M300 300V220C300 200 340 200 340 220V290" stroke="#1d3557" strokeWidth="2" fill="#f1f5f9" />
-                  <circle cx="320" cy="180" r="20" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <circle cx="320" cy="180" r="3" fill="#e63946" />
+                  <circle cx="150" cy="140" r="5" fill="var(--color-accent-red)" />
+                  <path d="M300 300V220C300 200 340 200 340 220V290" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-tertiary)" />
+                  <circle cx="320" cy="180" r="20" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <circle cx="320" cy="180" r="3" fill="var(--color-accent-red)" />
                 </svg>
                 <div className="slide-overlay">
                   <span className="slide-label">PUBLIC SPACES & PARKS</span>
@@ -122,17 +203,17 @@ export function App() {
                 aria-hidden={activeSlide !== 2}
               >
                 <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="#f8fafc" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="#1d3557" strokeWidth="2" strokeDasharray="4 4" />
+                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
+                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
                   {/* Shopfronts representation */}
-                  <rect x="80" y="160" width="120" height="130" rx="4" fill="#f1f5f9" stroke="#1d3557" strokeWidth="2" />
-                  <rect x="100" y="200" width="80" height="90" rx="2" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <path d="M60 160L140 120L220 160Z" fill="#f1f5f9" stroke="#1d3557" strokeWidth="2" />
-                  <rect x="260" y="140" width="160" height="150" rx="4" fill="#f1f5f9" stroke="#1d3557" strokeWidth="2" />
+                  <rect x="80" y="160" width="120" height="130" rx="4" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <rect x="100" y="200" width="80" height="90" rx="2" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <path d="M60 160L140 120L220 160Z" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <rect x="260" y="140" width="160" height="150" rx="4" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
                   {/* Sparingly used Red Accent details */}
-                  <rect x="300" y="180" width="80" height="110" rx="2" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                  <path d="M290 180H390" stroke="#e63946" strokeWidth="3" strokeLinecap="round" />
-                  <circle cx="140" cy="100" r="6" fill="#e63946" />
+                  <rect x="300" y="180" width="80" height="110" rx="2" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                  <path d="M290 180H390" stroke="var(--color-accent-red)" strokeWidth="3" strokeLinecap="round" />
+                  <circle cx="140" cy="100" r="6" fill="var(--color-accent-red)" />
                 </svg>
                 <div className="slide-overlay">
                   <span className="slide-label">LOCAL COMMERCE</span>
@@ -247,25 +328,35 @@ export function App() {
                 <div className="portrait-slot">
                   <div className="portrait-vector-art">
                     <svg className="portrait-svg" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="300" height="400" rx="8" fill="#f8fafc" />
-                      <rect x="2" y="2" width="296" height="396" rx="6" stroke="#1d3557" strokeWidth="2" />
+                      <rect width="300" height="400" rx="8" fill="var(--bg-secondary)" />
+                      <rect x="2" y="2" width="296" height="396" rx="6" stroke="var(--color-primary)" strokeWidth="2" />
                       
                       {/* Stylized Portrait Silhouette */}
-                      <circle cx="150" cy="150" r="55" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
-                      <path d="M80 320C80 250 110 230 150 230C190 230 220 250 220 320V396H80V320Z" fill="#e2e8f0" stroke="#1d3557" strokeWidth="2" />
+                      <circle cx="150" cy="150" r="55" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                      <path
+                        d="M80 320C80 250 110 230 150 230C190 230 220 250 220 320V396H80V320Z"
+                        fill="var(--color-border)"
+                        stroke="var(--color-primary)"
+                        strokeWidth="2"
+                      />
                       
                       {/* Suit & Collar details */}
-                      <path d="M125 230L150 280L175 230" stroke="#1d3557" strokeWidth="2" fill="#f8fafc" />
-                      <path d="M140 280H160L150 330L140 280Z" fill="#e63946" stroke="#1d3557" strokeWidth="1" /> {/* Red Tie */}
+                      <path d="M125 230L150 280L175 230" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-secondary)" />
+                      <path
+                        d="M140 280H160L150 330L140 280Z"
+                        fill="var(--color-accent-red)"
+                        stroke="var(--color-primary)"
+                        strokeWidth="1"
+                      /> {/* Red Tie */}
                       
                       {/* Flag Lapel Pin (subtle flag pin, sparingly used red/blue accent) */}
                       <g className="flag-lapel-pin" transform="translate(170, 255)">
-                        <rect width="16" height="11" rx="1" fill="#1d3557" />
-                        <line x1="1" y1="3" x2="15" y2="3" stroke="#f8fafc" strokeWidth="1.5" />
-                        <line x1="1" y1="7" x2="15" y2="7" stroke="#e63946" strokeWidth="1.5" />
-                        <rect width="7" height="6" fill="#1d3557" />
-                        <circle cx="3" cy="3" r="1.2" fill="#f8fafc" />
-                        <rect x="0" y="0" width="16" height="11" stroke="#1d3557" strokeWidth="1.5" fill="none" />
+                        <rect width="16" height="11" rx="1" fill="var(--color-primary)" />
+                        <line x1="1" y1="3" x2="15" y2="3" stroke="var(--bg-secondary)" strokeWidth="1.5" />
+                        <line x1="1" y1="7" x2="15" y2="7" stroke="var(--color-accent-red)" strokeWidth="1.5" />
+                        <rect width="7" height="6" fill="var(--color-primary)" />
+                        <circle cx="3" cy="3" r="1.2" fill="var(--bg-secondary)" />
+                        <rect x="0" y="0" width="16" height="11" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
                       </g>
                     </svg>
                   </div>
@@ -444,7 +535,15 @@ export function App() {
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
-                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z" />
+                  <path
+                    d={
+                      "M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4" +
+                      "s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 " +
+                      "11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19" +
+                      "c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 " +
+                      "0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
+                    }
+                  />
                   <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="none" />
                 </svg>
               </a>
