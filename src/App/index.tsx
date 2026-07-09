@@ -3,7 +3,71 @@
  * @description Main application layout for Mark Henrickson for Salem City Council campaign.
  */
 
+import { useState, useEffect, useRef } from 'react';
+
 export function App() {
+  // Slideshow State
+  const [currentSlide, setCurrentSlide] = useState(0);
+  const autoplayTimerRef = useRef<any>(null);
+
+  const slides = [
+    {
+      image: 'https://images.unsplash.com/photo-1540910419892-4a36d2c3266c?auto=format&fit=crop&w=1200&q=80',
+      caption: 'A Fresh Voice for Salem',
+      description: 'Mark Henrickson is committed to bringing open, proactive, and transparent leadership to Salem\'s Ward 1.',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1526304640581-d334cdbbf45e?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Supporting Small Businesses',
+      description: 'Promoting simplified regulatory frameworks and a welcoming environment for Salem\'s local merchants.',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Investing in Our Public Spaces',
+      description: 'Prioritizing safety, maintenance, and green spaces in our local parks and community areas.',
+    },
+    {
+      image: 'https://images.unsplash.com/photo-1582213782179-e0d53f98f2ca?auto=format&fit=crop&w=1200&q=80',
+      caption: 'Civic Accessibility',
+      description: 'Keeping doors open with regular town halls, prompt responses, and active resident feedback loops.',
+    },
+  ];
+
+  useEffect(() => {
+    autoplayTimerRef.current = setInterval(() => {
+      setCurrentSlide(prev => (prev + 1) % slides.length);
+    }, 6000);
+    return () => {
+      if (autoplayTimerRef.current) {
+        clearInterval(autoplayTimerRef.current);
+      }
+    };
+  }, [slides.length]);
+
+  const handlePrev = () => {
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
+    }
+    setCurrentSlide(prev => (prev - 1 + slides.length) % slides.length);
+  };
+
+  const handleNext = () => {
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
+    }
+    setCurrentSlide(prev => (prev + 1) % slides.length);
+  };
+
+  const handleDotClick = (index: number) => {
+    if (autoplayTimerRef.current) {
+      clearInterval(autoplayTimerRef.current);
+      autoplayTimerRef.current = null;
+    }
+    setCurrentSlide(index);
+  };
+
   return (
     <div className="campaign-container">
       {/* Translucent Navigation Header */}
@@ -16,7 +80,7 @@ export function App() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -28,7 +92,9 @@ export function App() {
           </a>
           <nav className="nav-links">
             <a href="#about" className="nav-link">About</a>
+            <a href="#gallery" className="nav-link">Gallery</a>
             <a href="#platform" className="nav-link">Platform</a>
+            <a href="#video" className="nav-link">Video</a>
             <a href="#join" className="nav-btn-link">Get Involved</a>
           </nav>
         </div>
@@ -36,8 +102,8 @@ export function App() {
 
       {/* Hero Section */}
       <section className="hero-section">
-        <div className="hero-glow-1"></div>
-        <div className="hero-glow-2"></div>
+        <div className="hero-glow-red"></div>
+        <div className="hero-glow-blue"></div>
         <div className="hero-content">
           <div className="hero-tag">SALEM CITY COUNCIL • WARD 1</div>
           <h1 className="hero-title">
@@ -47,7 +113,7 @@ export function App() {
           <p className="hero-subtitle">
             A fresh voice, a stronger community, and a better Salem.
             Committed to sensible development, robust public spaces,
-            and transparent civic leadership.
+            and transparent, responsive civic leadership.
           </p>
           <div className="hero-actions">
             <a href="#join" className="btn-primary" id="hero-btn-join">Join the Campaign</a>
@@ -82,7 +148,7 @@ export function App() {
                 all residents of Ward 1. I believe that local government works
                 best when it works with and for the people.
               </p>
-              <blockquote>
+              <blockquote className="patriotic-quote">
                 "True representation starts with active listening. Together, we
                 can build a city that honors its heritage while looking
                 confidently toward the future."
@@ -111,6 +177,100 @@ export function App() {
                   </div>
                 </li>
               </ul>
+            </div>
+          </div>
+        </section>
+
+        {/* Campaign Slideshow Section */}
+        <section id="gallery" className="gallery-section">
+          <div className="section-header">
+            <span className="section-subtitle">CAMPAIGN HIGHLIGHTS</span>
+            <h2 className="section-title">On the Campaign Trail</h2>
+            <div className="section-divider"></div>
+          </div>
+
+          <div 
+            className="carousel-container"
+            role="region"
+            aria-roledescription="carousel"
+            aria-label="Campaign highlights photo gallery"
+          >
+            <div className="carousel-slide-wrapper">
+              {slides.map((slide, index) => (
+                <div
+                  key={index}
+                  className={`carousel-slide ${index === currentSlide ? 'active' : ''}`}
+                  aria-hidden={index !== currentSlide}
+                  style={{
+                    opacity: index === currentSlide ? 1 : 0,
+                    zIndex: index === currentSlide ? 2 : 1,
+                  }}
+                >
+                  <img
+                    src={slide.image}
+                    alt={slide.caption}
+                    className="carousel-img"
+                  />
+                  <div className="carousel-caption">
+                    <h3 className="carousel-caption-title">{slide.caption}</h3>
+                    <p className="carousel-caption-desc">{slide.description}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            {/* Left and Right Nav Buttons */}
+            <button
+              onClick={handlePrev}
+              className="carousel-btn prev"
+              aria-label="Previous slide"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="15 18 9 12 15 6"></polyline>
+              </svg>
+            </button>
+            <button
+              onClick={handleNext}
+              className="carousel-btn next"
+              aria-label="Next slide"
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              >
+                <polyline points="9 18 15 12 9 6"></polyline>
+              </svg>
+            </button>
+
+            {/* Carousel Dots indicators */}
+            <div className="carousel-dots" role="tablist" aria-label="Slideshow navigation dots">
+              {slides.map((_, index) => (
+                <button
+                  key={index}
+                  onClick={() => handleDotClick(index)}
+                  className={`carousel-dot ${index === currentSlide ? 'active' : ''}`}
+                  role="tab"
+                  aria-selected={index === currentSlide}
+                  aria-label={`Go to slide ${index + 1}`}
+                ></button>
+              ))}
             </div>
           </div>
         </section>
@@ -225,6 +385,35 @@ export function App() {
           </div>
         </section>
 
+        {/* Campaign Video Section */}
+        <section id="video" className="video-section">
+          <div className="section-header">
+            <span className="section-subtitle">MEET THE CANDIDATE</span>
+            <h2 className="section-title">Campaign Video</h2>
+            <div className="section-divider"></div>
+          </div>
+          <div className="video-container">
+            <div className="video-wrapper">
+              <iframe
+                className="campaign-video-iframe"
+                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                title="Mark Henrickson Campaign Launch Video"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                allowFullScreen
+              ></iframe>
+            </div>
+            <div className="video-narrative">
+              <h3 className="video-title">Why I am running for City Council</h3>
+              <p>
+                In this introductory video, Mark outlines his vision for Salem and Ward 1, 
+                discussing the key challenges we face and the sensible, proactive solutions 
+                he hopes to bring to Salem City Council. Watch to learn more about our 
+                campaign and our dedication to building a stronger community, together.
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Get Involved Section */}
         <section id="join" className="join-section">
           <div className="section-header">
@@ -232,9 +421,28 @@ export function App() {
             <h2 className="section-title">Join the Campaign</h2>
             <div className="section-divider"></div>
           </div>
-          <p className="join-placeholder">
-            Want to help? Ways to volunteer are coming soon.
-          </p>
+          <div className="join-content">
+            <p className="join-placeholder">
+              Want to help? Ways to volunteer are coming soon.
+            </p>
+            <div className="volunteer-interest-cards">
+              <div className="interest-card">
+                <span className="interest-icon">🏡</span>
+                <h4>Host a Yard Sign</h4>
+                <p>Show your support in your neighborhood by hosting a campaign yard sign.</p>
+              </div>
+              <div className="interest-card">
+                <span className="interest-icon">🗣️</span>
+                <h4>Spread the Word</h4>
+                <p>Share our campaign with friends and family in Ward 1 to help build momentum.</p>
+              </div>
+              <div className="interest-card">
+                <span className="interest-icon">✉️</span>
+                <h4>Get Campaign Updates</h4>
+                <p>Stay informed about future town halls, community events, and news.</p>
+              </div>
+            </div>
+          </div>
         </section>
 
       </main>
@@ -249,7 +457,7 @@ export function App() {
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
-              strokeWidth="2"
+              strokeWidth="2.5"
               strokeLinecap="round"
               strokeLinejoin="round"
             >
@@ -265,7 +473,9 @@ export function App() {
             <h4>Quick Links</h4>
             <ul className="footer-links">
               <li><a href="#about">Meet Mark</a></li>
+              <li><a href="#gallery">Gallery</a></li>
               <li><a href="#platform">The Platform</a></li>
+              <li><a href="#video">Video</a></li>
               <li><a href="#join">Get Involved</a></li>
             </ul>
           </div>
@@ -273,7 +483,7 @@ export function App() {
           <div className="footer-links-group">
             <h4>Social Media</h4>
             <div className="footer-social-icons">
-              {/* Facebook Placeholder */}
+              {/* Facebook */}
               <a
                 href="https://facebook.com/markhenricksonforsalem"
                 className="social-icon"
@@ -296,7 +506,7 @@ export function App() {
                   />
                 </svg>
               </a>
-              {/* Twitter/X Placeholder */}
+              {/* Twitter/X */}
               <a
                 href="https://twitter.com/henrickson4salem"
                 className="social-icon"
@@ -323,7 +533,7 @@ export function App() {
                   />
                 </svg>
               </a>
-              {/* Instagram Placeholder */}
+              {/* Instagram */}
               <a
                 href="https://instagram.com/markhenricksonforsalem"
                 className="social-icon"
