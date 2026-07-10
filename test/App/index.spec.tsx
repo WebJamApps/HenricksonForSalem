@@ -24,7 +24,7 @@ describe('App', () => {
     expect(document.querySelector('input, select, textarea')).toBeNull();
     
     const toggleBtns = screen.getAllByRole('button', { name: /Switch to (dark|light) theme/i });
-    expect(toggleBtns.length).toBe(2);
+    expect(toggleBtns).toHaveLength(2);
     expect(screen.getByRole('button', { name: 'Toggle navigation menu' })).toBeInTheDocument();
     expect(screen.queryAllByRole('button')).toHaveLength(3);
   });
