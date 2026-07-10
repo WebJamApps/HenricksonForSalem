@@ -19,11 +19,14 @@ describe('App', () => {
     expect(screen.getByRole('heading', { name: 'Join the Campaign' })).toBeInTheDocument();
     expect(screen.getByText('Want to help? Ways to volunteer are coming soon.')).toBeInTheDocument();
 
-    // Purely static: no form fields, no buttons anywhere on the page besides the theme toggle
+    // Purely static: no form fields, no buttons anywhere on the page besides the theme toggle and hamburger
     expect(document.querySelector('form')).toBeNull();
     expect(document.querySelector('input, select, textarea')).toBeNull();
-    expect(screen.getByRole('button', { name: /Switch to (dark|light) theme/i })).toBeInTheDocument();
-    expect(screen.queryAllByRole('button')).toHaveLength(1);
+    
+    const toggleBtns = screen.getAllByRole('button', { name: /Switch to (dark|light) theme/i });
+    expect(toggleBtns.length).toBe(2);
+    expect(screen.getByRole('button', { name: 'Toggle navigation menu' })).toBeInTheDocument();
+    expect(screen.queryAllByRole('button')).toHaveLength(3);
   });
 
   it('renders the footer social-link placeholders and disclosure', () => {
@@ -84,20 +87,21 @@ describe('App', () => {
       const setItemSpy = vi.spyOn(Storage.prototype, 'setItem');
       render(<App />);
 
-      const toggleBtn = screen.getByRole('button', { name: 'Switch to dark theme' });
+      const toggleBtns = screen.getAllByRole('button', { name: 'Switch to dark theme' });
+      const toggleBtn = toggleBtns[0];
       expect(document.documentElement.getAttribute('data-theme')).toBe('light');
 
       // Toggle to dark
       fireEvent.click(toggleBtn);
       expect(document.documentElement.getAttribute('data-theme')).toBe('dark');
       expect(setItemSpy).toHaveBeenCalledWith('theme', 'dark');
-      expect(screen.getByRole('button', { name: 'Switch to light theme' })).toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: 'Switch to light theme' })[0]).toBeInTheDocument();
 
       // Toggle back to light
       fireEvent.click(toggleBtn);
       expect(document.documentElement.getAttribute('data-theme')).toBe('light');
       expect(setItemSpy).toHaveBeenCalledWith('theme', 'light');
-      expect(screen.getByRole('button', { name: 'Switch to dark theme' })).toBeInTheDocument();
+      expect(screen.getAllByRole('button', { name: 'Switch to dark theme' })[0]).toBeInTheDocument();
 
       setItemSpy.mockRestore();
     });
@@ -141,6 +145,14 @@ describe('App', () => {
     it('has no axe accessibility violations in dark theme', async () => {
       localStorage.setItem('theme', 'dark');
       const { container } = render(<App />);
+      const results = await axe(container);
+      expect(results).toHaveNoViolations();
+    });
+
+    it('has no axe accessibility violations when mobile menu is open', async () => {
+      const { container } = render(<App />);
+      const hamburger = screen.getByRole('button', { name: 'Toggle navigation menu' });
+      fireEvent.click(hamburger);
       const results = await axe(container);
       expect(results).toHaveNoViolations();
     });
