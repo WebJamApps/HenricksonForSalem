@@ -76,7 +76,7 @@ export function App() {
           <nav className="nav-links" aria-label="Desktop navigation">
             <a href="#about" className="nav-link">Meet Mark</a>
             <a href="#platform" className="nav-link">Platform</a>
-            <a href="#join" className="nav-btn-link">Get Involved</a>
+            <a href="#join" className="nav-link">Get Involved</a>
             <button
               onClick={toggleTheme}
               className="theme-toggle-btn"
@@ -177,7 +177,7 @@ export function App() {
             <a href="#platform" className="mobile-drawer-link" onClick={handleLinkClick}>
               Platform
             </a>
-            <a href="#join" className="mobile-drawer-btn-link" onClick={handleLinkClick}>
+            <a href="#join" className="mobile-drawer-link" onClick={handleLinkClick}>
               Get Involved
             </a>
             <button
@@ -238,14 +238,14 @@ export function App() {
       <section className="hero-section">
         <div className="hero-container">
           <div className="hero-left">
-            <div className="hero-tag">SALEM CITY COUNCIL • WARD 1</div>
+            <div className="hero-tag">SALEM CITY COUNCIL CANDIDATE</div>
             <h1 className="hero-title">
               Mark Henrickson <br />
               <span className="hero-title-accent">for Salem City Council</span>
             </h1>
             <p className="hero-subtitle">
               A fresh voice, a stronger community, and a better Salem. Mark is dedicated to 
-              active, accessible leadership for Ward 1, prioritizing real community engagement, 
+              active, accessible leadership for Salem, prioritizing real community engagement, 
               robust public parks, and responsive civic leadership.
             </p>
             <div className="hero-actions">
@@ -298,7 +298,7 @@ export function App() {
                 </svg>
                 <div className="slide-overlay">
                   <span className="slide-label">COMMUNITY ENGAGEMENT</span>
-                  <p className="slide-caption">Listening directly to Ward 1 residents at neighborhood town halls.</p>
+                  <p className="slide-caption">Listening directly to Salem residents at neighborhood town halls.</p>
                 </div>
               </div>
 
@@ -346,7 +346,7 @@ export function App() {
                 </svg>
                 <div className="slide-overlay">
                   <span className="slide-label">LOCAL COMMERCE</span>
-                  <p className="slide-caption">Supporting Ward 1 small businesses with streamlined regulations.</p>
+                  <p className="slide-caption">Supporting Salem small businesses with streamlined regulations.</p>
                 </div>
               </div>
 
@@ -375,12 +375,114 @@ export function App() {
 
       {/* Main Campaign Content */}
       <main className="main-content">
-        {/* Personal Commitment + Platform Section */}
-        <section className="commitment-platform-section">
+        {/* Meet the Candidate / About Section */}
+        <section id="about" className="commitment-platform-section">
           <div className="mid-grid">
             <div className="mid-text-col">
+              <div className="bio-block">
+                <span className="sub-title">MEET THE CANDIDATE</span>
+                <h2 className="main-heading">About Mark Henrickson</h2>
+                <div className="heading-accent-line"></div>
+
+                <div className="bio-narrative">
+                  <p>
+                    Mark Henrickson has spent over 15 years in Salem as a civic leader, professional civil engineer, and 
+                    dedicated family man. With a professional career rooted in solving complex public infrastructure 
+                    challenges and directing community projects, Mark brings a rigorous, analytical, and cooperative 
+                    approach to local policymaking.
+                  </p>
+                  <p>
+                    He has actively served on the Salem Neighborhood Council, spent weekends volunteering with community 
+                    youth recreation leagues, and championed local initiatives aimed at upgrading public parks and restoring historic 
+                    pathways. Living in Salem with his wife and two children, Mark is deeply invested in ensuring Salem remains 
+                    a safe, thriving, and accessible place for every neighbor.
+                  </p>
+                </div>
+              </div>
+
+              <div className="bio-stats-card">
+                <h3 className="stats-heading">Professional & Civic Background</h3>
+                <ul className="stats-list">
+                  <li>
+                    <span className="stats-bullet-icon">🔧</span>
+                    <div>
+                      <strong>Senior Project Engineer</strong>
+                      <span>Over 15 years of experience managing infrastructure projects.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="stats-bullet-icon">🏢</span>
+                    <div>
+                      <strong>Civic Organizer</strong>
+                      <span>Former Chair, Salem Parks Preservation Coalition.</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="stats-bullet-icon">🏡</span>
+                    <div>
+                      <strong>Dedicated Resident</strong>
+                      <span>Salem resident and active community volunteer since 2011.</span>
+                    </div>
+                  </li>
+                </ul>
+              </div>
+            </div>
+
+            {/* Illustrated Portrait Slot Column */}
+            <div className="mid-portrait-col">
+              <div className="portrait-slot-wrapper">
+                <div className="portrait-slot">
+                  <div className="portrait-vector-art">
+                    <svg className="portrait-svg" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+                      <rect width="300" height="400" rx="8" fill="var(--bg-secondary)" />
+                      <rect x="2" y="2" width="296" height="396" rx="6" stroke="var(--color-primary)" strokeWidth="2" />
+                      
+                      {/* Stylized Portrait Silhouette */}
+                      <circle cx="150" cy="150" r="55" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
+                      <path
+                        d="M80 320C80 250 110 230 150 230C190 230 220 250 220 320V396H80V320Z"
+                        fill="var(--color-border)"
+                        stroke="var(--color-primary)"
+                        strokeWidth="2"
+                      />
+                      
+                      {/* Suit & Collar details */}
+                      <path d="M125 230L150 280L175 230" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-secondary)" />
+                      <path
+                        d="M140 280H160L150 330L140 280Z"
+                        fill="var(--color-accent-red)"
+                        stroke="var(--color-primary)"
+                        strokeWidth="1"
+                      /> {/* Red Tie */}
+                      
+                      {/* Flag Lapel Pin (subtle flag pin, sparingly used red/blue accent) */}
+                      <g className="flag-lapel-pin" transform="translate(170, 255)">
+                        <rect width="16" height="11" rx="1" fill="var(--color-primary)" />
+                        <line x1="1" y1="3" x2="15" y2="3" stroke="var(--bg-secondary)" strokeWidth="1.5" />
+                        <line x1="1" y1="7" x2="15" y2="7" stroke="var(--color-accent-red)" strokeWidth="1.5" />
+                        <rect width="7" height="6" fill="var(--color-primary)" />
+                        <circle cx="3" cy="3" r="1.2" fill="var(--bg-secondary)" />
+                        <rect x="0" y="0" width="16" height="11" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
+                      </g>
+                    </svg>
+                  </div>
+                  <div className="portrait-caption">
+                    <span className="portrait-name">MARK HENRICKSON</span>
+                    <span className="portrait-sub">Candidate for Salem City Council</span>
+                    <span className="portrait-slot-note">[ PORTRAIT SLOT - VECTOR ASSET PENDING ]</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Commitment + Platform Section */}
+        <section className="bio-section">
+          <div className="bio-container">
+            <div className="bio-content-grid">
               <div className="commitment-block">
-                <span className="sub-title">MY COMMITMENT TO WARD 1</span>
+                <span className="sub-title">MY COMMITMENT TO SALEM</span>
                 <h2 className="main-heading">Serving with Integrity and Purpose</h2>
                 <div className="heading-accent-line"></div>
                 
@@ -450,106 +552,6 @@ export function App() {
                 </div>
               </div>
             </div>
-
-            {/* Illustrated Portrait Slot Column */}
-            <div className="mid-portrait-col">
-              <div className="portrait-slot-wrapper">
-                <div className="portrait-slot">
-                  <div className="portrait-vector-art">
-                    <svg className="portrait-svg" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="300" height="400" rx="8" fill="var(--bg-secondary)" />
-                      <rect x="2" y="2" width="296" height="396" rx="6" stroke="var(--color-primary)" strokeWidth="2" />
-                      
-                      {/* Stylized Portrait Silhouette */}
-                      <circle cx="150" cy="150" r="55" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                      <path
-                        d="M80 320C80 250 110 230 150 230C190 230 220 250 220 320V396H80V320Z"
-                        fill="var(--color-border)"
-                        stroke="var(--color-primary)"
-                        strokeWidth="2"
-                      />
-                      
-                      {/* Suit & Collar details */}
-                      <path d="M125 230L150 280L175 230" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-secondary)" />
-                      <path
-                        d="M140 280H160L150 330L140 280Z"
-                        fill="var(--color-accent-red)"
-                        stroke="var(--color-primary)"
-                        strokeWidth="1"
-                      /> {/* Red Tie */}
-                      
-                      {/* Flag Lapel Pin (subtle flag pin, sparingly used red/blue accent) */}
-                      <g className="flag-lapel-pin" transform="translate(170, 255)">
-                        <rect width="16" height="11" rx="1" fill="var(--color-primary)" />
-                        <line x1="1" y1="3" x2="15" y2="3" stroke="var(--bg-secondary)" strokeWidth="1.5" />
-                        <line x1="1" y1="7" x2="15" y2="7" stroke="var(--color-accent-red)" strokeWidth="1.5" />
-                        <rect width="7" height="6" fill="var(--color-primary)" />
-                        <circle cx="3" cy="3" r="1.2" fill="var(--bg-secondary)" />
-                        <rect x="0" y="0" width="16" height="11" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
-                      </g>
-                    </svg>
-                  </div>
-                  <div className="portrait-caption">
-                    <span className="portrait-name">MARK HENRICKSON</span>
-                    <span className="portrait-sub">Ward 1 City Council Candidate</span>
-                    <span className="portrait-slot-note">[ PORTRAIT SLOT - VECTOR ASSET PENDING ]</span>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        {/* Bio Section */}
-        <section id="about" className="bio-section">
-          <div className="bio-container">
-            <span className="sub-title">MEET THE CANDIDATE</span>
-            <h2 className="main-heading">About Mark Henrickson</h2>
-            <div className="heading-accent-line"></div>
-
-            <div className="bio-content-grid">
-              <div className="bio-narrative">
-                <p>
-                  Mark Henrickson has spent over 15 years in Salem as a civic leader, professional civil engineer, and 
-                  dedicated family man. With a professional career rooted in solving complex public infrastructure 
-                  challenges and directing community projects, Mark brings a rigorous, analytical, and cooperative 
-                  approach to local policymaking.
-                </p>
-                <p>
-                  He has actively served on the Ward 1 Neighborhood Council, spent weekends volunteering with community 
-                  youth recreation leagues, and championed local initiatives aimed at upgrading public parks and restoring historic 
-                  pathways. Living in Salem with his wife and two children, Mark is deeply invested in ensuring Ward 1 remains 
-                  a safe, thriving, and accessible place for every neighbor.
-                </p>
-              </div>
-
-              <div className="bio-stats-card">
-                <h3 className="stats-heading">Professional & Civic Background</h3>
-                <ul className="stats-list">
-                  <li>
-                    <span className="stats-bullet-icon">🔧</span>
-                    <div>
-                      <strong>Senior Project Engineer</strong>
-                      <span>Over 15 years of experience managing infrastructure projects.</span>
-                    </div>
-                  </li>
-                  <li>
-                    <span className="stats-bullet-icon">🏢</span>
-                    <div>
-                      <strong>Civic Organizer</strong>
-                      <span>Former Chair, Ward 1 Parks Preservation Coalition.</span>
-                    </div>
-                  </li>
-                  <li>
-                    <span className="stats-bullet-icon">🏡</span>
-                    <div>
-                      <strong>Dedicated Resident</strong>
-                      <span>Salem resident and active community volunteer since 2011.</span>
-                    </div>
-                  </li>
-                </ul>
-              </div>
-            </div>
           </div>
         </section>
 
@@ -577,7 +579,7 @@ export function App() {
                 <span className="option-link-text">Send an Email →</span>
               </a>
 
-              <a href="#about" className="join-option-card">
+              <a href="mailto:info@henricksonforsalem.com?subject=Yard%20Sign%20Request" className="join-option-card">
                 <div className="option-icon">🏡</div>
                 <h3>Request a Yard Sign</h3>
                 <p>Sign up to receive one of our campaign lawn signs as soon as they are manufactured.</p>
@@ -587,7 +589,7 @@ export function App() {
               <a href="#platform" className="join-option-card">
                 <div className="option-icon">📢</div>
                 <h3>Spread the Word</h3>
-                <p>Explore our platform, talk to your Ward 1 neighbors, and share our vision for a better Salem.</p>
+                <p>Explore our platform, talk to your neighbors, and share our vision for a better Salem.</p>
                 <span className="option-link-text">Read Our Goals →</span>
               </a>
             </div>
