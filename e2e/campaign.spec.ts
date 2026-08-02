@@ -70,6 +70,26 @@ test.describe('Campaign Site - Desktop', () => {
     }
   });
 
+  test('should ensure all visible SVG icons maintain strictly constrained dimensions (width and height <= 60px)', async ({ page, isMobile }) => {
+    if (isMobile) return;
+
+    const svgs = page.locator('svg');
+    const count = await svgs.count();
+    expect(count).toBeGreaterThan(0);
+
+    for (let i = 0; i < count; i++) {
+      const svg = svgs.nth(i);
+      if (await svg.isVisible()) {
+        const box = await svg.boundingBox();
+        expect(box).not.toBeNull();
+        if (box) {
+          expect(box.width).toBeLessThanOrEqual(60);
+          expect(box.height).toBeLessThanOrEqual(60);
+        }
+      }
+    }
+  });
+
   test('should not show hamburger menu and should have functional inline nav and theme toggle', async ({ page, isMobile }) => {
     if (isMobile) return;
 
