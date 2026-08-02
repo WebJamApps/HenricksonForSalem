@@ -7,11 +7,21 @@ import * as axeMatchers from 'vitest-axe/matchers.js';
 expect.extend(axeMatchers);
 
 describe('App', () => {
-  it('renders the static campaign page sections', () => {
+  it('renders the static campaign page sections including Dropbox text & photos', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: 'Mark Henrickson for Salem City Council' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'A Message from Mark' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'About Mark Henrickson' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: "Why I'm Running" })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'My Values' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Campaign Platform' })).toBeInTheDocument();
+
+    // Verify campaign images loaded from public/images
+    const heroImg = screen.getByAltText('Mark Henrickson hero portrait');
+    expect(heroImg).toHaveAttribute('src', '/images/mark-henrickson-1.png');
+
+    const portraitImg = screen.getByAltText('Mark Henrickson portrait');
+    expect(portraitImg).toHaveAttribute('src', '/images/mark-henrickson-2.png');
   });
 
   it('renders the Get Involved section as a static placeholder with no form', () => {
