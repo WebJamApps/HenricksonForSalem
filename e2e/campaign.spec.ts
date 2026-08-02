@@ -47,7 +47,7 @@ test.describe('Campaign Site - Desktop', () => {
     await expect(modal).not.toBeVisible();
   });
 
-  test('should render footer star logo icon inline with the campaign heading', async ({ page, isMobile }) => {
+  test('should render footer star logo icon inline with the campaign heading and aligned to top of text', async ({ page, isMobile }) => {
     if (isMobile) return;
 
     const logoIcon = page.locator('.footer-logo-icon');
@@ -65,8 +65,10 @@ test.describe('Campaign Site - Desktop', () => {
     if (logoBox && headingBox) {
       // Logo is positioned to the left of heading text
       expect(headingBox.x).toBeGreaterThan(logoBox.x);
-      // Top alignment difference is small (< 10px)
-      expect(Math.abs(logoBox.y - headingBox.y)).toBeLessThan(10);
+      // Logo top is AT or SLIGHTLY HIGHER than heading top (never lower)
+      expect(logoBox.y).toBeLessThanOrEqual(headingBox.y);
+      // Maximum top offset difference is within 5px
+      expect(headingBox.y - logoBox.y).toBeLessThanOrEqual(5);
     }
   });
 
