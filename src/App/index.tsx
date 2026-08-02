@@ -1050,7 +1050,7 @@ export function App() {
                     <span>
                       I give permission for the sign to be installed where visible to the{' '}
                       <span className="no-wrap-text">
-                        street. <span className="required-star">*</span>
+                        street.&nbsp;<span className="required-star">*</span>
                       </span>
                     </span>
                   </label>
