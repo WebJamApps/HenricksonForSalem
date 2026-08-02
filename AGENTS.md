@@ -19,5 +19,6 @@ empty or placeholder values are rejected. Bump the semver `version` in
 ## UI and Deployment Rules
 
 - **Form Required Asterisks**: Never allow a required field asterisk (`*`) to wrap alone onto a new line in form labels or checkbox text. Wrap the preceding trailing word together with the asterisk in a `white-space: nowrap` container (e.g. `<span style={{ whiteSpace: 'nowrap' }}>word <span className="required-star">*</span></span>` or `.no-wrap-text`).
+- **Footer Brand Logo Inline Alignment**: Wrap `.footer-logo-icon` and `<h3>` heading in `.footer-brand-title` (`display: flex; align-items: flex-start; gap: 0.75rem;`) and set `margin-top: -1px; flex-shrink: 0;` on `.footer-logo-icon` for flush alignment with capital letter cap-height.
 - **Cloudflare Pages Headers**: Always maintain `public/_headers` setting `/*` to `Cache-Control: no-cache, no-store, must-revalidate` and `/assets/*` to `Cache-Control: public, max-age=31536000, immutable` so browsers never serve stale `index.html` referencing missing asset hashes.
 
