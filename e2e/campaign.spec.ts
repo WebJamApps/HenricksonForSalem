@@ -27,6 +27,49 @@ test.describe('Campaign Site - Desktop', () => {
     await expect(facebookLink).not.toBeVisible();
   });
 
+  test('should open, validate, and close the yard sign request modal dialog', async ({ page, isMobile }) => {
+    if (isMobile) return;
+
+    // Modal is initially not visible
+    const modal = page.locator('[role="dialog"]');
+    await expect(modal).not.toBeVisible();
+
+    // Click Request a Yard Sign card button
+    const openModalBtn = page.locator('button:has-text("Request a Yard Sign")');
+    await openModalBtn.click();
+
+    await expect(modal).toBeVisible();
+    await expect(page.locator('#yard-sign-dialog-title')).toHaveText('Yard Sign Request Form');
+
+    // Close via close button
+    const closeBtn = page.locator('button[aria-label="Close yard sign request dialog"]');
+    await closeBtn.click();
+    await expect(modal).not.toBeVisible();
+  });
+
+  test('should render footer star logo icon inline with the campaign heading', async ({ page, isMobile }) => {
+    if (isMobile) return;
+
+    const logoIcon = page.locator('.footer-logo-icon');
+    const heading = page.locator('.footer-brand h3');
+
+    await expect(logoIcon).toBeVisible();
+    await expect(heading).toBeVisible();
+
+    const logoBox = await logoIcon.boundingBox();
+    const headingBox = await heading.boundingBox();
+
+    expect(logoBox).not.toBeNull();
+    expect(headingBox).not.toBeNull();
+
+    if (logoBox && headingBox) {
+      // Logo is positioned to the left of heading text
+      expect(headingBox.x).toBeGreaterThan(logoBox.x);
+      // Top alignment difference is small (< 10px)
+      expect(Math.abs(logoBox.y - headingBox.y)).toBeLessThan(10);
+    }
+  });
+
   test('should not show hamburger menu and should have functional inline nav and theme toggle', async ({ page, isMobile }) => {
     if (isMobile) return;
 
