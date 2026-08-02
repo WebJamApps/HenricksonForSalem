@@ -24,26 +24,75 @@ describe('App', () => {
     expect(portraitImg).toHaveAttribute('src', '/images/mark-henrickson-2.png');
   });
 
-  it('renders the Get Involved section as a static placeholder with no form', () => {
+  it('renders direct email link to henmark1@aol.com', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: 'Join the Campaign' })).toBeInTheDocument();
-    expect(screen.getByText('Want to help? Ways to volunteer are coming soon.')).toBeInTheDocument();
-
-    // Purely static: no form fields, no buttons anywhere on the page besides the theme toggle and hamburger
-    expect(document.querySelector('form')).toBeNull();
-    expect(document.querySelector('input, select, textarea')).toBeNull();
-    
-    const toggleBtns = screen.getAllByRole('button', { name: /Switch to (dark|light) theme/i });
-    expect(toggleBtns).toHaveLength(2);
-    expect(screen.getByRole('button', { name: 'Toggle navigation menu' })).toBeInTheDocument();
-    expect(screen.queryAllByRole('button')).toHaveLength(3);
+    const directEmailLink = screen.getByRole('link', { name: /Get in Touch/i });
+    expect(directEmailLink).toHaveAttribute('href', 'mailto:henmark1@aol.com');
+    expect(screen.getByText(/Email me directly at Mark Henrickson henmark1@aol.com/i)).toBeInTheDocument();
   });
 
-  it('renders the footer social-link placeholders and disclosure', () => {
+  it('renders and validates the Yard Sign Request Form', () => {
     render(<App />);
-    expect(screen.getByLabelText('Facebook')).toBeInTheDocument();
-    expect(screen.getByLabelText('YouTube')).toBeInTheDocument();
-    expect(screen.getByLabelText('Instagram')).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Yard Sign Request Form' })).toBeInTheDocument();
+
+    const nameInput = screen.getByLabelText(/Full Name/i);
+    const addressInput = screen.getByLabelText(/Physical Address/i);
+    const phoneInput = screen.getByLabelText(/Contact Phone Number/i);
+    const permissionCheckbox = screen.getByLabelText(/I give permission for the sign to be installed/i);
+    const submitBtn = screen.getByRole('button', { name: 'Submit Yard Sign Request' });
+
+    // Test validation for empty name
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Please enter your full name.')).toBeInTheDocument();
+
+    // Fill name, test address required
+    fireEvent.change(nameInput, { target: { value: 'John Smith' } });
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Please enter your physical address.')).toBeInTheDocument();
+
+    // Test address must be in Salem, VA validation
+    fireEvent.change(addressInput, { target: { value: '123 Main St, Roanoke, VA' } });
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Physical address must be located within the city of Salem, Virginia.')).toBeInTheDocument();
+
+    // Correct address to Salem
+    fireEvent.change(addressInput, { target: { value: '123 College Ave, Salem, VA 24153' } });
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Please enter a contact phone number.')).toBeInTheDocument();
+
+    // Fill phone number
+    fireEvent.change(phoneInput, { target: { value: '540-555-0123' } });
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Please check the box granting permission to install the sign visible to the street.')).toBeInTheDocument();
+
+    // Check permission and submit successfully
+    fireEvent.click(permissionCheckbox);
+    fireEvent.click(submitBtn);
+
+    expect(screen.getByText(/Your yard sign request details have been prepared in your email client/i)).toBeInTheDocument();
+  });
+
+  it('renders business name field when Business property type is selected', () => {
+    render(<App />);
+    const businessRadio = screen.getByLabelText('Business');
+    expect(screen.queryByLabelText(/Business Name/i)).toBeNull();
+
+    fireEvent.click(businessRadio);
+    const businessInput = screen.getByLabelText(/Business Name/i);
+    expect(businessInput).toBeInTheDocument();
+
+    const submitBtn = screen.getByRole('button', { name: 'Submit Yard Sign Request' });
+    fireEvent.change(screen.getByLabelText(/Full Name/i), { target: { value: 'Jane Doe' } });
+    fireEvent.click(submitBtn);
+    expect(screen.getByText('Please enter your business name.')).toBeInTheDocument();
+  });
+
+  it('renders the footer disclosure and social links commented out', () => {
+    render(<App />);
+    expect(screen.queryByLabelText('Facebook')).toBeNull();
+    expect(screen.queryByLabelText('YouTube')).toBeNull();
+    expect(screen.queryByLabelText('Instagram')).toBeNull();
     expect(screen.getByText('PAID FOR BY THE COMMITTEE TO ELECT MARK HENRICKSON')).toBeInTheDocument();
   });
 

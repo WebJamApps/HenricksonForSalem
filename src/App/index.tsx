@@ -33,6 +33,71 @@ export function App() {
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
+  // Yard sign request form state
+  const [propertyType, setPropertyType] = useState<'residential' | 'business'>('residential');
+  const [fullName, setFullName] = useState('');
+  const [businessName, setBusinessName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phone, setPhone] = useState('');
+  const [permission, setPermission] = useState(false);
+  const [formError, setFormError] = useState('');
+  const [formSubmitted, setFormSubmitted] = useState(false);
+
+  const handleYardSignSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    setFormError('');
+
+    if (!fullName.trim()) {
+      setFormError('Please enter your full name.');
+      return;
+    }
+
+    if (propertyType === 'business' && !businessName.trim()) {
+      setFormError('Please enter your business name.');
+      return;
+    }
+
+    if (!address.trim()) {
+      setFormError('Please enter your physical address.');
+      return;
+    }
+
+    const lowerAddress = address.toLowerCase();
+    if (!lowerAddress.includes('salem')) {
+      setFormError('Physical address must be located within the city of Salem, Virginia.');
+      return;
+    }
+
+    if (!phone.trim()) {
+      setFormError('Please enter a contact phone number.');
+      return;
+    }
+
+    if (!permission) {
+      setFormError('Please check the box granting permission to install the sign visible to the street.');
+      return;
+    }
+
+    const recipients = 'henmark1@aol.com,JRHenrickson@gmail.com';
+    const subject = `Yard Sign Request - ${fullName.trim()}`;
+    const bodyLines = [
+      'Yard Sign Request Details:',
+      `Full Name: ${fullName.trim()}`,
+      `Property Type: ${propertyType === 'business' ? 'Business' : 'Residential'}`,
+      propertyType === 'business' ? `Business Name: ${businessName.trim()}` : null,
+      `Physical Address: ${address.trim()}`,
+      `Phone Number: ${phone.trim()}`,
+      'Permission granted for sign to be installed visible to street: Yes',
+    ].filter(Boolean);
+
+    const mailtoUrl = `mailto:${recipients}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(bodyLines.join('\n'))}`;
+
+    if (typeof window !== 'undefined') {
+      window.location.href = mailtoUrl;
+    }
+    setFormSubmitted(true);
+  };
+
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
@@ -402,8 +467,8 @@ export function App() {
                   <p>
                     After graduating from high school, Mark entered the construction industry, learning the building trade 
                     through hands-on experience before continuing his education. Seeking additional opportunities, he moved 
-                    to Dallas, Texas, where he gained valuable leadership experience with respected home builders before launching 
-                    his own construction company.
+                    to Dallas, Texas, where he gained valuable leadership experience with respected home builders 
+                    before launching his own construction company.
                   </p>
                   <p>
                     Eventually, Salem called him home. Returning to the community that shaped him, Mark built a successful 
@@ -787,7 +852,7 @@ export function App() {
             <div className="heading-accent-line"></div>
 
             <p className="join-text-lead">
-              Want to help? Ways to volunteer are coming soon.
+              Want to help? Request a yard sign or get in touch with the campaign below.
             </p>
             <p className="join-text-desc">
               The future of Salem is bright. By working together, listening to one another, and planning 
@@ -796,18 +861,18 @@ export function App() {
             </p>
 
             <div className="join-options-grid">
-              <a href="mailto:info@henricksonforsalem.com" className="join-option-card">
+              <a href="mailto:henmark1@aol.com" className="join-option-card">
                 <div className="option-icon">📧</div>
                 <h3>Get in Touch</h3>
-                <p>Email us directly at info@henricksonforsalem.com to share your thoughts, questions, or concerns.</p>
+                <p>Email me directly at Mark Henrickson henmark1@aol.com to share your thoughts, questions, or concerns.</p>
                 <span className="option-link-text">Send an Email →</span>
               </a>
 
-              <a href="mailto:info@henricksonforsalem.com?subject=Yard%20Sign%20Request" className="join-option-card">
+              <a href="#yard-sign-form" className="join-option-card">
                 <div className="option-icon">🏡</div>
                 <h3>Request a Yard Sign</h3>
-                <p>Sign up to receive one of our campaign lawn signs as soon as they are available.</p>
-                <span className="option-link-text">Express Interest →</span>
+                <p>Sign up to receive one of our campaign lawn signs installed at your Salem residential or business location.</p>
+                <span className="option-link-text">Request Sign ↓</span>
               </a>
 
               <a href="#platform" className="join-option-card">
@@ -816,6 +881,148 @@ export function App() {
                 <p>Explore our platform, talk to your neighbors, and share our vision for a stronger Salem.</p>
                 <span className="option-link-text">Read Our Goals →</span>
               </a>
+            </div>
+
+            {/* Yard Sign Request Form Container */}
+            <div className="yard-sign-form-container" id="yard-sign-form">
+              <div className="yard-sign-form-header">
+                <h3>Yard Sign Request Form</h3>
+                <p>Please provide your contact info and Salem address below to request a campaign sign.</p>
+              </div>
+
+              {formSubmitted ? (
+                <div className="form-success-msg" role="status">
+                  <strong>Thank you!</strong> Your yard sign request details have been prepared in your email client.
+                  If your email client didn't open automatically, you can also email your request to{' '}
+                  <a href="mailto:henmark1@aol.com">henmark1@aol.com</a> and{' '}
+                  <a href="mailto:JRHenrickson@gmail.com">JRHenrickson@gmail.com</a>.
+                </div>
+              ) : (
+                <form className="yard-sign-form" onSubmit={handleYardSignSubmit} noValidate>
+                  {formError && (
+                    <div className="form-error-msg" role="alert">
+                      {formError}
+                    </div>
+                  )}
+
+                  <div className="form-group">
+                    <label htmlFor="yard-sign-name">
+                      Full Name <span className="required-star">*</span>
+                    </label>
+                    <input
+                      id="yard-sign-name"
+                      type="text"
+                      className="form-control"
+                      value={fullName}
+                      onChange={e => setFullName(e.target.value)}
+                      placeholder="e.g. Jane Doe"
+                      aria-label="Full Name"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <span className="form-label-title">
+                      Property Type <span className="required-star">*</span>
+                    </span>
+                    <div className="radio-group">
+                      <label className="radio-label">
+                        <input
+                          type="radio"
+                          name="propertyType"
+                          value="residential"
+                          checked={propertyType === 'residential'}
+                          onChange={() => setPropertyType('residential')}
+                          aria-label="Residential"
+                        />
+                        <span>Residential</span>
+                      </label>
+                      <label className="radio-label">
+                        <input
+                          type="radio"
+                          name="propertyType"
+                          value="business"
+                          checked={propertyType === 'business'}
+                          onChange={() => setPropertyType('business')}
+                          aria-label="Business"
+                        />
+                        <span>Business</span>
+                      </label>
+                    </div>
+                  </div>
+
+                  {propertyType === 'business' && (
+                    <div className="form-group">
+                      <label htmlFor="yard-sign-business">
+                        Business Name <span className="required-star">*</span>
+                      </label>
+                      <input
+                        id="yard-sign-business"
+                        type="text"
+                        className="form-control"
+                        value={businessName}
+                        onChange={e => setBusinessName(e.target.value)}
+                        placeholder="e.g. Main Street Cafe"
+                        aria-label="Business Name"
+                        required
+                      />
+                    </div>
+                  )}
+
+                  <div className="form-group">
+                    <label htmlFor="yard-sign-address">
+                      Physical Address (Must be in Salem, VA) <span className="required-star">*</span>
+                    </label>
+                    <input
+                      id="yard-sign-address"
+                      type="text"
+                      className="form-control"
+                      value={address}
+                      onChange={e => setAddress(e.target.value)}
+                      placeholder="e.g. 123 College Ave, Salem, VA 24153"
+                      aria-label="Physical Address (Must be in Salem, VA)"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group">
+                    <label htmlFor="yard-sign-phone">
+                      Contact Phone Number <span className="required-star">*</span>
+                    </label>
+                    <input
+                      id="yard-sign-phone"
+                      type="tel"
+                      className="form-control"
+                      value={phone}
+                      onChange={e => setPhone(e.target.value)}
+                      placeholder="e.g. (540) 555-0199"
+                      aria-label="Contact Phone Number"
+                      required
+                    />
+                  </div>
+
+                  <div className="form-group checkbox-group">
+                    <label htmlFor="yard-sign-permission" className="checkbox-label">
+                      <input
+                        id="yard-sign-permission"
+                        type="checkbox"
+                        checked={permission}
+                        onChange={e => setPermission(e.target.checked)}
+                        aria-label="I give permission for the sign to be installed where visible to the street"
+                        required
+                      />
+                      <span>
+                        I give permission for the sign to be installed where visible to the street.{' '}
+                        <span className="required-star">*</span>
+                      </span>
+                    </label>
+                  </div>
+
+                  <button type="submit" className="btn-primary form-submit-btn">
+                    Submit Yard Sign Request
+                  </button>
+                </form>
+              )}
             </div>
           </div>
         </section>
@@ -858,79 +1065,7 @@ export function App() {
             </ul>
           </div>
 
-          <div className="footer-links-group">
-            <h4>Follow Our Campaign</h4>
-            <div className="footer-social-icons">
-              <a
-                href="https://facebook.com/markhenricksonforsalem"
-                className="social-icon"
-                aria-label="Facebook"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z" />
-                </svg>
-              </a>
-              <a
-                href="https://youtube.com/@markhenricksonforsalem"
-                className="social-icon"
-                aria-label="YouTube"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path
-                    d={
-                      "M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4" +
-                      "s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 " +
-                      "11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19" +
-                      "c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 " +
-                      "0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"
-                    }
-                  />
-                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02" fill="none" />
-                </svg>
-              </a>
-              <a
-                href="https://instagram.com/markhenricksonforsalem"
-                className="social-icon"
-                aria-label="Instagram"
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5" />
-                </svg>
-              </a>
-            </div>
-          </div>
+          {/* Follow Our Campaign social media links commented out per issue #35 */}
         </div>
 
         <div className="footer-disclosure">
