@@ -943,7 +943,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-name">
-                    Full Name <span className="required-star">*</span>
+                    Full <span className="no-wrap-text">Name&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-name"
@@ -959,7 +959,7 @@ export function App() {
 
                 <div className="form-group">
                   <span className="form-label-title">
-                    Property Type <span className="required-star">*</span>
+                    Property <span className="no-wrap-text">Type&nbsp;<span className="required-star">*</span></span>
                   </span>
                   <div className="radio-group">
                     <label className="radio-label">
@@ -990,7 +990,7 @@ export function App() {
                 {propertyType === 'business' && (
                   <div className="form-group">
                     <label htmlFor="yard-sign-business">
-                      Business Name <span className="required-star">*</span>
+                      Business <span className="no-wrap-text">Name&nbsp;<span className="required-star">*</span></span>
                     </label>
                     <input
                       id="yard-sign-business"
@@ -1007,7 +1007,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-address">
-                    Physical Address (Must be in Salem, VA) <span className="required-star">*</span>
+                    Physical Address (Must be in Salem, <span className="no-wrap-text">VA)&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-address"
@@ -1023,7 +1023,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-phone">
-                    Contact Phone Number <span className="required-star">*</span>
+                    Contact Phone <span className="no-wrap-text">Number&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-phone"
