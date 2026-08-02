@@ -32,8 +32,16 @@ describe('App', () => {
     expect(screen.getByText(/Email me directly at Mark Henrickson henmark1@aol.com/i)).toBeInTheDocument();
   });
 
-  it('renders and validates the Yard Sign Request Form', () => {
+  it('renders and validates the Yard Sign Request Form modal', () => {
     render(<App />);
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    // Click request sign button to open modal dialog
+    const openModalBtn = screen.getByRole('button', { name: /Request a Yard Sign/i });
+    fireEvent.click(openModalBtn);
+
+    const dialog = screen.getByRole('dialog');
+    expect(dialog).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'Yard Sign Request Form' })).toBeInTheDocument();
 
     const nameInput = screen.getByLabelText(/Full Name/i);
@@ -71,10 +79,18 @@ describe('App', () => {
     fireEvent.click(submitBtn);
 
     expect(screen.getByText(/Your yard sign request details have been prepared in your email client/i)).toBeInTheDocument();
+
+    // Click Done to close modal
+    fireEvent.click(screen.getByRole('button', { name: 'Done' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders business name field when Business property type is selected', () => {
+  it('renders business name field when Business property type is selected in modal', () => {
     render(<App />);
+
+    // Open modal
+    fireEvent.click(screen.getByRole('button', { name: /Request a Yard Sign/i }));
+
     const businessRadio = screen.getByLabelText('Business');
     expect(screen.queryByLabelText(/Business Name/i)).toBeNull();
 
@@ -86,6 +102,24 @@ describe('App', () => {
     fireEvent.change(screen.getByLabelText(/Full Name/i), { target: { value: 'Jane Doe' } });
     fireEvent.click(submitBtn);
     expect(screen.getByText('Please enter your business name.')).toBeInTheDocument();
+  });
+
+  it('closes modal dialog when clicking close button or pressing Escape key', () => {
+    render(<App />);
+
+    // Open modal
+    fireEvent.click(screen.getByRole('button', { name: /Request a Yard Sign/i }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    // Close via close button
+    fireEvent.click(screen.getByRole('button', { name: 'Close yard sign request dialog' }));
+    expect(screen.queryByRole('dialog')).toBeNull();
+
+    // Reopen modal and close via Escape key
+    fireEvent.click(screen.getByRole('button', { name: /Request a Yard Sign/i }));
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+    fireEvent.keyDown(window, { key: 'Escape' });
+    expect(screen.queryByRole('dialog')).toBeNull();
   });
 
   it('renders the footer disclosure and social links commented out', () => {
