@@ -813,11 +813,11 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .footer-logo-icon {
-  width: 28px;
-  height: 28px;
+  width: 24px;
+  height: 24px;
   color: var(--color-accent-red); /* Sparingly used red */
   flex-shrink: 0;
-  margin-top: 0;
+  margin-top: -3px;
 }
 
 .footer-brand h3 {
@@ -827,6 +827,7 @@ h1, h2, h3, h4, h5, h6 {
   letter-spacing: 0.05em;
   color: var(--color-primary);
   margin: 0;
+  line-height: 1.1;
 }
 
 .footer-brand p {
