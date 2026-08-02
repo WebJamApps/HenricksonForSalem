@@ -32,6 +32,7 @@ export function App() {
   };
 
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isYardSignModalOpen, setIsYardSignModalOpen] = useState(false);
 
   // Yard sign request form state
   const [propertyType, setPropertyType] = useState<'residential' | 'business'>('residential');
@@ -102,15 +103,16 @@ export function App() {
     const handleKeyDown = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setIsMenuOpen(false);
+        setIsYardSignModalOpen(false);
       }
     };
-    if (isMenuOpen) {
+    if (isMenuOpen || isYardSignModalOpen) {
       window.addEventListener('keydown', handleKeyDown);
     }
     return () => {
       window.removeEventListener('keydown', handleKeyDown);
     };
-  }, [isMenuOpen]);
+  }, [isMenuOpen, isYardSignModalOpen]);
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -868,12 +870,16 @@ export function App() {
                 <span className="option-link-text">Send an Email →</span>
               </a>
 
-              <a href="#yard-sign-form" className="join-option-card">
+              <button
+                type="button"
+                className="join-option-card join-option-card-btn"
+                onClick={() => setIsYardSignModalOpen(true)}
+              >
                 <div className="option-icon">🏡</div>
                 <h3>Request a Yard Sign</h3>
                 <p>Sign up to receive one of our campaign lawn signs installed at your Salem residential or business location.</p>
-                <span className="option-link-text">Request Sign ↓</span>
-              </a>
+                <span className="option-link-text">Request Sign →</span>
+              </button>
 
               <a href="#platform" className="join-option-card">
                 <div className="option-icon">📢</div>
@@ -882,151 +888,189 @@ export function App() {
                 <span className="option-link-text">Read Our Goals →</span>
               </a>
             </div>
-
-            {/* Yard Sign Request Form Container */}
-            <div className="yard-sign-form-container" id="yard-sign-form">
-              <div className="yard-sign-form-header">
-                <h3>Yard Sign Request Form</h3>
-                <p>Please provide your contact info and Salem address below to request a campaign sign.</p>
-              </div>
-
-              {formSubmitted ? (
-                <div className="form-success-msg" role="status">
-                  <strong>Thank you!</strong> Your yard sign request details have been prepared in your email client.
-                  If your email client didn't open automatically, you can also email your request to{' '}
-                  <a href="mailto:henmark1@aol.com">henmark1@aol.com</a> and{' '}
-                  <a href="mailto:JRHenrickson@gmail.com">JRHenrickson@gmail.com</a>.
-                </div>
-              ) : (
-                <form className="yard-sign-form" onSubmit={handleYardSignSubmit} noValidate>
-                  {formError && (
-                    <div className="form-error-msg" role="alert">
-                      {formError}
-                    </div>
-                  )}
-
-                  <div className="form-group">
-                    <label htmlFor="yard-sign-name">
-                      Full Name <span className="required-star">*</span>
-                    </label>
-                    <input
-                      id="yard-sign-name"
-                      type="text"
-                      className="form-control"
-                      value={fullName}
-                      onChange={e => setFullName(e.target.value)}
-                      placeholder="e.g. Jane Doe"
-                      aria-label="Full Name"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <span className="form-label-title">
-                      Property Type <span className="required-star">*</span>
-                    </span>
-                    <div className="radio-group">
-                      <label className="radio-label">
-                        <input
-                          type="radio"
-                          name="propertyType"
-                          value="residential"
-                          checked={propertyType === 'residential'}
-                          onChange={() => setPropertyType('residential')}
-                          aria-label="Residential"
-                        />
-                        <span>Residential</span>
-                      </label>
-                      <label className="radio-label">
-                        <input
-                          type="radio"
-                          name="propertyType"
-                          value="business"
-                          checked={propertyType === 'business'}
-                          onChange={() => setPropertyType('business')}
-                          aria-label="Business"
-                        />
-                        <span>Business</span>
-                      </label>
-                    </div>
-                  </div>
-
-                  {propertyType === 'business' && (
-                    <div className="form-group">
-                      <label htmlFor="yard-sign-business">
-                        Business Name <span className="required-star">*</span>
-                      </label>
-                      <input
-                        id="yard-sign-business"
-                        type="text"
-                        className="form-control"
-                        value={businessName}
-                        onChange={e => setBusinessName(e.target.value)}
-                        placeholder="e.g. Main Street Cafe"
-                        aria-label="Business Name"
-                        required
-                      />
-                    </div>
-                  )}
-
-                  <div className="form-group">
-                    <label htmlFor="yard-sign-address">
-                      Physical Address (Must be in Salem, VA) <span className="required-star">*</span>
-                    </label>
-                    <input
-                      id="yard-sign-address"
-                      type="text"
-                      className="form-control"
-                      value={address}
-                      onChange={e => setAddress(e.target.value)}
-                      placeholder="e.g. 123 College Ave, Salem, VA 24153"
-                      aria-label="Physical Address (Must be in Salem, VA)"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group">
-                    <label htmlFor="yard-sign-phone">
-                      Contact Phone Number <span className="required-star">*</span>
-                    </label>
-                    <input
-                      id="yard-sign-phone"
-                      type="tel"
-                      className="form-control"
-                      value={phone}
-                      onChange={e => setPhone(e.target.value)}
-                      placeholder="e.g. (540) 555-0199"
-                      aria-label="Contact Phone Number"
-                      required
-                    />
-                  </div>
-
-                  <div className="form-group checkbox-group">
-                    <label htmlFor="yard-sign-permission" className="checkbox-label">
-                      <input
-                        id="yard-sign-permission"
-                        type="checkbox"
-                        checked={permission}
-                        onChange={e => setPermission(e.target.checked)}
-                        aria-label="I give permission for the sign to be installed where visible to the street"
-                        required
-                      />
-                      <span>
-                        I give permission for the sign to be installed where visible to the street.{' '}
-                        <span className="required-star">*</span>
-                      </span>
-                    </label>
-                  </div>
-
-                  <button type="submit" className="btn-primary form-submit-btn">
-                    Submit Yard Sign Request
-                  </button>
-                </form>
-              )}
-            </div>
           </div>
         </section>
       </main>
+
+      {/* Yard Sign Request Dialog Modal */}
+      {isYardSignModalOpen && (
+        <div className="modal-backdrop">
+          <div
+            className="modal-dialog"
+            role="dialog"
+            aria-modal="true"
+            aria-labelledby="yard-sign-dialog-title"
+          >
+            <button
+              type="button"
+              className="modal-close-btn"
+              onClick={() => setIsYardSignModalOpen(false)}
+              aria-label="Close yard sign request dialog"
+            >
+              &times;
+            </button>
+            <div className="yard-sign-form-header">
+              <h3 id="yard-sign-dialog-title">Yard Sign Request Form</h3>
+              <p>Please provide your contact info and Salem address below to request a campaign sign.</p>
+            </div>
+
+            {formSubmitted ? (
+              <div className="form-success-msg" role="status">
+                <strong>Thank you!</strong> Your yard sign request details have been prepared in your email client.
+                If your email client didn't open automatically, you can also email your request to{' '}
+                <a href="mailto:henmark1@aol.com">henmark1@aol.com</a> and{' '}
+                <a href="mailto:JRHenrickson@gmail.com">JRHenrickson@gmail.com</a>.
+                <div style={{ marginTop: '1.5rem', textAlign: 'right' }}>
+                  <button
+                    type="button"
+                    className="btn-primary"
+                    onClick={() => {
+                      setIsYardSignModalOpen(false);
+                      setFormSubmitted(false);
+                    }}
+                  >
+                    Done
+                  </button>
+                </div>
+              </div>
+            ) : (
+              <form className="yard-sign-form" onSubmit={handleYardSignSubmit} noValidate>
+                {formError && (
+                  <div className="form-error-msg" role="alert">
+                    {formError}
+                  </div>
+                )}
+
+                <div className="form-group">
+                  <label htmlFor="yard-sign-name">
+                    Full Name <span className="required-star">*</span>
+                  </label>
+                  <input
+                    id="yard-sign-name"
+                    type="text"
+                    className="form-control"
+                    value={fullName}
+                    onChange={e => setFullName(e.target.value)}
+                    placeholder="e.g. Jane Doe"
+                    aria-label="Full Name"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <span className="form-label-title">
+                    Property Type <span className="required-star">*</span>
+                  </span>
+                  <div className="radio-group">
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="propertyType"
+                        value="residential"
+                        checked={propertyType === 'residential'}
+                        onChange={() => setPropertyType('residential')}
+                        aria-label="Residential"
+                      />
+                      <span>Residential</span>
+                    </label>
+                    <label className="radio-label">
+                      <input
+                        type="radio"
+                        name="propertyType"
+                        value="business"
+                        checked={propertyType === 'business'}
+                        onChange={() => setPropertyType('business')}
+                        aria-label="Business"
+                      />
+                      <span>Business</span>
+                    </label>
+                  </div>
+                </div>
+
+                {propertyType === 'business' && (
+                  <div className="form-group">
+                    <label htmlFor="yard-sign-business">
+                      Business Name <span className="required-star">*</span>
+                    </label>
+                    <input
+                      id="yard-sign-business"
+                      type="text"
+                      className="form-control"
+                      value={businessName}
+                      onChange={e => setBusinessName(e.target.value)}
+                      placeholder="e.g. Main Street Cafe"
+                      aria-label="Business Name"
+                      required
+                    />
+                  </div>
+                )}
+
+                <div className="form-group">
+                  <label htmlFor="yard-sign-address">
+                    Physical Address (Must be in Salem, VA) <span className="required-star">*</span>
+                  </label>
+                  <input
+                    id="yard-sign-address"
+                    type="text"
+                    className="form-control"
+                    value={address}
+                    onChange={e => setAddress(e.target.value)}
+                    placeholder="e.g. 123 College Ave, Salem, VA 24153"
+                    aria-label="Physical Address (Must be in Salem, VA)"
+                    required
+                  />
+                </div>
+
+                <div className="form-group">
+                  <label htmlFor="yard-sign-phone">
+                    Contact Phone Number <span className="required-star">*</span>
+                  </label>
+                  <input
+                    id="yard-sign-phone"
+                    type="tel"
+                    className="form-control"
+                    value={phone}
+                    onChange={e => setPhone(e.target.value)}
+                    placeholder="e.g. (540) 555-0199"
+                    aria-label="Contact Phone Number"
+                    required
+                  />
+                </div>
+
+                <div className="form-group checkbox-group">
+                  <label htmlFor="yard-sign-permission" className="checkbox-label">
+                    <input
+                      id="yard-sign-permission"
+                      type="checkbox"
+                      checked={permission}
+                      onChange={e => setPermission(e.target.checked)}
+                      aria-label="I give permission for the sign to be installed where visible to the street"
+                      required
+                    />
+                    <span>
+                      I give permission for the sign to be installed where visible to the street.{' '}
+                      <span className="required-star">*</span>
+                    </span>
+                  </label>
+                </div>
+
+                <div className="modal-actions">
+                  <button type="submit" className="btn-primary form-submit-btn">
+                    Submit Yard Sign Request
+                  </button>
+                  <button
+                    type="button"
+                    className="btn-secondary"
+                    onClick={() => setIsYardSignModalOpen(false)}
+                  >
+                    Cancel
+                  </button>
+                </div>
+              </form>
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Campaign Footer */}
       <footer className="campaign-footer">
