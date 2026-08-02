@@ -1,6 +1,7 @@
 /**
  * @file index.tsx
  * @description Main application layout for Mark Henrickson for Salem City Council campaign.
+ * Updated with official campaign text & photos from Dropbox (Initial Website content.docx & Images).
  */
 
 import { useState, useEffect } from 'react';
@@ -75,6 +76,8 @@ export function App() {
           </a>
           <nav className="nav-links" aria-label="Desktop navigation">
             <a href="#about" className="nav-link">Meet Mark</a>
+            <a href="#why-running" className="nav-link">Why I'm Running</a>
+            <a href="#values" className="nav-link">My Values</a>
             <a href="#platform" className="nav-link">Platform</a>
             <a href="#join" className="nav-link">Get Involved</a>
             <button
@@ -122,7 +125,7 @@ export function App() {
               )}
             </button>
           </nav>
-          
+
           {/* Hamburger button (visible on mobile only) */}
           <button
             className="hamburger-btn"
@@ -132,7 +135,6 @@ export function App() {
             type="button"
           >
             {isMenuOpen ? (
-              // Close icon (X)
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -148,7 +150,6 @@ export function App() {
                 <line x1="6" y1="6" x2="18" y2="18" />
               </svg>
             ) : (
-              // Hamburger icon
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -173,6 +174,12 @@ export function App() {
           <nav className="mobile-drawer-nav" aria-label="Mobile navigation">
             <a href="#about" className="mobile-drawer-link" onClick={handleLinkClick}>
               Meet Mark
+            </a>
+            <a href="#why-running" className="mobile-drawer-link" onClick={handleLinkClick}>
+              Why I'm Running
+            </a>
+            <a href="#values" className="mobile-drawer-link" onClick={handleLinkClick}>
+              My Values
             </a>
             <a href="#platform" className="mobile-drawer-link" onClick={handleLinkClick}>
               Platform
@@ -244,10 +251,15 @@ export function App() {
               <span className="hero-title-accent">for Salem City Council</span>
             </h1>
             <p className="hero-subtitle">
-              A fresh voice, a stronger community, and a better Salem. Mark is dedicated to 
-              active, accessible leadership for Salem, prioritizing real community engagement, 
-              robust public parks, and responsive civic leadership.
+              Building a Stronger Salem Together. Mark is dedicated to practical leadership, 
+              thoughtful planning, and common-sense decision-making for our city's future.
             </p>
+            <div className="quote-banner">
+              <p>
+                "Mark has spent a lifetime solving problems, earning trust, and taking responsibility. 
+                That's exactly the kind of person we want helping lead Salem."
+              </p>
+            </div>
             <div className="hero-actions">
               <a href="#join" className="btn-primary" id="hero-btn-join">
                 Join the Campaign
@@ -265,40 +277,14 @@ export function App() {
                 className={`gallery-slide ${activeSlide === 0 ? 'active' : 'inactive'}`}
                 aria-hidden={activeSlide !== 0}
               >
-                <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
-                  {/* Community graphic representation */}
-                  <circle cx="250" cy="160" r="60" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <path
-                    d="M190 260C190 210 210 200 250 200C290 200 310 210 310 260"
-                    stroke="var(--color-primary)"
-                    strokeWidth="2.5"
-                    fill="var(--bg-tertiary)"
-                  />
-                  <circle cx="170" cy="180" r="40" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <path
-                    d="M130 270C130 220 145 215 170 215C195 215 210 220 210 270"
-                    stroke="var(--color-primary)"
-                    strokeWidth="2"
-                    fill="var(--bg-tertiary)"
-                  />
-                  <circle cx="330" cy="180" r="40" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <path
-                    d="M290 270C290 220 305 215 330 215C355 215 370 220 370 270"
-                    stroke="var(--color-primary)"
-                    strokeWidth="2"
-                    fill="var(--bg-tertiary)"
-                  />
-                  {/* Sparingly used Red Accent details */}
-                  <circle cx="250" cy="160" r="6" fill="var(--color-accent-red)" />
-                  <circle cx="170" cy="180" r="4" fill="var(--color-accent-red)" />
-                  <circle cx="330" cy="180" r="4" fill="var(--color-accent-red)" />
-                  <path d="M230 110L250 90L270 110" stroke="var(--color-accent-red)" strokeWidth="2" strokeLinecap="round" />
-                </svg>
+                <img
+                  src="/images/mark-henrickson-1.png"
+                  alt="Mark Henrickson hero portrait"
+                  className="slide-img"
+                />
                 <div className="slide-overlay">
-                  <span className="slide-label">COMMUNITY ENGAGEMENT</span>
-                  <p className="slide-caption">Listening directly to Salem residents at neighborhood town halls.</p>
+                  <span className="slide-label">PRACTICAL LEADERSHIP</span>
+                  <p className="slide-caption">Solving problems and building relationships in Salem for over 30 years.</p>
                 </div>
               </div>
 
@@ -307,22 +293,14 @@ export function App() {
                 className={`gallery-slide ${activeSlide === 1 ? 'active' : 'inactive'}`}
                 aria-hidden={activeSlide !== 1}
               >
-                <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
-                  {/* Public Parks graphic representation */}
-                  <path d="M50 300C120 280 200 310 280 290C360 270 420 310 450 300" stroke="var(--color-primary)" strokeWidth="2.5" />
-                  <path d="M120 290V190C120 160 180 160 180 190V295" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-tertiary)" />
-                  <circle cx="150" cy="140" r="30" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  {/* Sparingly used Red Accent details */}
-                  <circle cx="150" cy="140" r="5" fill="var(--color-accent-red)" />
-                  <path d="M300 300V220C300 200 340 200 340 220V290" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-tertiary)" />
-                  <circle cx="320" cy="180" r="20" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <circle cx="320" cy="180" r="3" fill="var(--color-accent-red)" />
-                </svg>
+                <img
+                  src="/images/mark-community-1.png"
+                  alt="Mark Henrickson community event"
+                  className="slide-img"
+                />
                 <div className="slide-overlay">
-                  <span className="slide-label">PUBLIC SPACES & PARKS</span>
-                  <p className="slide-caption">Advocating for robust parks, accessible sidewalks, and safe green spaces.</p>
+                  <span className="slide-label">COMMUNITY ENGAGEMENT</span>
+                  <p className="slide-caption">Listening directly to Salem residents and working together for our future.</p>
                 </div>
               </div>
 
@@ -331,22 +309,14 @@ export function App() {
                 className={`gallery-slide ${activeSlide === 2 ? 'active' : 'inactive'}`}
                 aria-hidden={activeSlide !== 2}
               >
-                <svg className="slide-svg" viewBox="0 0 500 350" fill="none" xmlns="http://www.w3.org/2000/svg">
-                  <rect width="500" height="350" rx="12" fill="var(--bg-secondary)" />
-                  <rect x="2" y="2" width="496" height="346" rx="10" stroke="var(--color-primary)" strokeWidth="2" strokeDasharray="4 4" />
-                  {/* Shopfronts representation */}
-                  <rect x="80" y="160" width="120" height="130" rx="4" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <rect x="100" y="200" width="80" height="90" rx="2" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <path d="M60 160L140 120L220 160Z" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <rect x="260" y="140" width="160" height="150" rx="4" fill="var(--bg-tertiary)" stroke="var(--color-primary)" strokeWidth="2" />
-                  {/* Sparingly used Red Accent details */}
-                  <rect x="300" y="180" width="80" height="110" rx="2" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                  <path d="M290 180H390" stroke="var(--color-accent-red)" strokeWidth="3" strokeLinecap="round" />
-                  <circle cx="140" cy="100" r="6" fill="var(--color-accent-red)" />
-                </svg>
+                <img
+                  src="/images/mark-community-2.png"
+                  alt="Mark Henrickson civic service"
+                  className="slide-img"
+                />
                 <div className="slide-overlay">
-                  <span className="slide-label">LOCAL COMMERCE</span>
-                  <p className="slide-caption">Supporting Salem small businesses with streamlined regulations.</p>
+                  <span className="slide-label">SERVICE ABOVE SELF</span>
+                  <p className="slide-caption">Decades of dedicated involvement with Rotary, Planning Commission, and local youth.</p>
                 </div>
               </div>
 
@@ -375,6 +345,39 @@ export function App() {
 
       {/* Main Campaign Content */}
       <main className="main-content">
+        {/* Welcome Section */}
+        <section id="welcome" className="bio-section">
+          <div className="bio-container">
+            <div className="commitment-block">
+              <span className="sub-title">WELCOME TO MY CAMPAIGN</span>
+              <h2 className="main-heading">A Message from Mark</h2>
+              <div className="heading-accent-line"></div>
+              
+              <div className="bio-narrative">
+                <p>
+                  Thank you for taking the time to visit my campaign website. I'm honored that you're here 
+                  because I believe every election begins with a conversation. Before asking for your vote, 
+                  I want you to know who I am, what has shaped my life, and why I have chosen to serve our community.
+                </p>
+                <p>
+                  Salem has been my home for most of my life. It is where I grew up, built my business, and 
+                  devoted countless hours to serving alongside friends and neighbors. My commitment to this 
+                  community has never been about politics—it has always been about people.
+                </p>
+                <p>
+                  Throughout this website, I hope you'll learn about my background, my values, and my vision 
+                  for Salem's future. More importantly, I hope you'll see that my goal is simple: to listen, 
+                  to lead with integrity, and to help ensure that Salem remains the community we are all proud to call home.
+                </p>
+              </div>
+
+              <p className="commitment-signature-text">
+                — Mark Henrickson
+              </p>
+            </div>
+          </div>
+        </section>
+
         {/* Meet the Candidate / About Section */}
         <section id="about" className="commitment-platform-section">
           <div className="mid-grid">
@@ -386,16 +389,44 @@ export function App() {
 
                 <div className="bio-narrative">
                   <p>
-                    Mark Henrickson has spent over 15 years in Salem as a civic leader, professional civil engineer, and 
-                    dedicated family man. With a professional career rooted in solving complex public infrastructure 
-                    challenges and directing community projects, Mark brings a rigorous, analytical, and cooperative 
-                    approach to local policymaking.
+                    Mark Henrickson is a lifelong Salem resident, business owner, builder, and community leader 
+                    who has spent more than four decades solving problems, building relationships, and serving 
+                    the community he loves.
                   </p>
                   <p>
-                    He has actively served on the Salem Neighborhood Council, spent weekends volunteering with community 
-                    youth recreation leagues, and championed local initiatives aimed at upgrading public parks and restoring historic 
-                    pathways. Living in Salem with his wife and two children, Mark is deeply invested in ensuring Salem remains 
-                    a safe, thriving, and accessible place for every neighbor.
+                    Growing up in Salem, Mark learned the importance of faith, compassion, hard work, and personal 
+                    responsibility from his parents. His father devoted his career to caring for children through a 
+                    Lutheran children's home, while his mother demonstrated quiet strength through her dedication 
+                    to family, faith, and serving others. Those values continue to guide Mark today.
+                  </p>
+                  <p>
+                    After graduating from high school, Mark entered the construction industry, learning the building trade 
+                    through hands-on experience before continuing his education. Seeking additional opportunities, he moved 
+                    to Dallas, Texas, where he gained valuable leadership experience with respected home builders before launching 
+                    his own construction company.
+                  </p>
+                  <p>
+                    Eventually, Salem called him home. Returning to the community that shaped him, Mark built a successful 
+                    construction and development business that has served families and businesses throughout the Roanoke Valley 
+                    for more than thirty years.
+                  </p>
+                  <p>
+                    His work has never been just about constructing buildings. Every project has required listening carefully, 
+                    solving problems creatively, managing budgets responsibly, coordinating with local governments, and earning 
+                    the trust of clients. Those same skills are essential to effective public service.
+                  </p>
+                  <p>
+                    Outside of business, Mark has devoted decades to community involvement. He has served through his church, 
+                    volunteered as a youth leader, participated in numerous civic organizations, served as President of the Rotary 
+                    Club of Salem, and currently serves on the Salem Planning Commission.
+                  </p>
+                  <p>
+                    Whether helping a young family build a home, volunteering as Santa Claus for local children, serving on 
+                    community committees, or supporting charitable causes, Mark believes leadership begins with serving others.
+                  </p>
+                  <p>
+                    Today, Mark is seeking to continue that lifetime of service by helping guide Salem's future with practical 
+                    leadership, thoughtful planning, and common-sense decision-making.
                   </p>
                 </div>
               </div>
@@ -404,72 +435,49 @@ export function App() {
                 <h3 className="stats-heading">Professional & Civic Background</h3>
                 <ul className="stats-list">
                   <li>
-                    <span className="stats-bullet-icon">🔧</span>
+                    <span className="stats-bullet-icon">🏗️</span>
                     <div>
-                      <strong>Senior Project Engineer</strong>
-                      <span>Over 15 years of experience managing infrastructure projects.</span>
+                      <strong>30+ Years Salem Business Owner</strong>
+                      <span>Built a successful construction and development business serving Roanoke Valley families.</span>
                     </div>
                   </li>
                   <li>
-                    <span className="stats-bullet-icon">🏢</span>
+                    <span className="stats-bullet-icon">🏛️</span>
                     <div>
-                      <strong>Civic Organizer</strong>
-                      <span>Former Chair, Salem Parks Preservation Coalition.</span>
+                      <strong>Salem Planning Commission</strong>
+                      <span>Actively serving to guide city planning and responsible community development.</span>
                     </div>
                   </li>
                   <li>
-                    <span className="stats-bullet-icon">🏡</span>
+                    <span className="stats-bullet-icon">🤝</span>
                     <div>
-                      <strong>Dedicated Resident</strong>
-                      <span>Salem resident and active community volunteer since 2011.</span>
+                      <strong>Rotary Club of Salem</strong>
+                      <span>Past President, living the motto "Service Above Self".</span>
+                    </div>
+                  </li>
+                  <li>
+                    <span className="stats-bullet-icon">🎅</span>
+                    <div>
+                      <strong>Lifelong Community Volunteer</strong>
+                      <span>Youth mentor, church leader, and annual Santa Claus volunteer for local children.</span>
                     </div>
                   </li>
                 </ul>
               </div>
             </div>
 
-            {/* Illustrated Portrait Slot Column */}
+            {/* Official Portrait Photo Column */}
             <div className="mid-portrait-col">
               <div className="portrait-slot-wrapper">
                 <div className="portrait-slot">
-                  <div className="portrait-vector-art">
-                    <svg className="portrait-svg" viewBox="0 0 300 400" fill="none" xmlns="http://www.w3.org/2000/svg">
-                      <rect width="300" height="400" rx="8" fill="var(--bg-secondary)" />
-                      <rect x="2" y="2" width="296" height="396" rx="6" stroke="var(--color-primary)" strokeWidth="2" />
-                      
-                      {/* Stylized Portrait Silhouette */}
-                      <circle cx="150" cy="150" r="55" fill="var(--color-border)" stroke="var(--color-primary)" strokeWidth="2" />
-                      <path
-                        d="M80 320C80 250 110 230 150 230C190 230 220 250 220 320V396H80V320Z"
-                        fill="var(--color-border)"
-                        stroke="var(--color-primary)"
-                        strokeWidth="2"
-                      />
-                      
-                      {/* Suit & Collar details */}
-                      <path d="M125 230L150 280L175 230" stroke="var(--color-primary)" strokeWidth="2" fill="var(--bg-secondary)" />
-                      <path
-                        d="M140 280H160L150 330L140 280Z"
-                        fill="var(--color-accent-red)"
-                        stroke="var(--color-primary)"
-                        strokeWidth="1"
-                      /> {/* Red Tie */}
-                      
-                      {/* Flag Lapel Pin (subtle flag pin, sparingly used red/blue accent) */}
-                      <g className="flag-lapel-pin" transform="translate(170, 255)">
-                        <rect width="16" height="11" rx="1" fill="var(--color-primary)" />
-                        <line x1="1" y1="3" x2="15" y2="3" stroke="var(--bg-secondary)" strokeWidth="1.5" />
-                        <line x1="1" y1="7" x2="15" y2="7" stroke="var(--color-accent-red)" strokeWidth="1.5" />
-                        <rect width="7" height="6" fill="var(--color-primary)" />
-                        <circle cx="3" cy="3" r="1.2" fill="var(--bg-secondary)" />
-                        <rect x="0" y="0" width="16" height="11" stroke="var(--color-primary)" strokeWidth="1.5" fill="none" />
-                      </g>
-                    </svg>
-                  </div>
+                  <img
+                    src="/images/mark-henrickson-2.png"
+                    alt="Mark Henrickson portrait"
+                    className="portrait-image"
+                  />
                   <div className="portrait-caption">
                     <span className="portrait-name">MARK HENRICKSON</span>
                     <span className="portrait-sub">Candidate for Salem City Council</span>
-                    <span className="portrait-slot-note">[ PORTRAIT SLOT - VECTOR ASSET PENDING ]</span>
                   </div>
                 </div>
               </div>
@@ -477,77 +485,293 @@ export function App() {
           </div>
         </section>
 
-        {/* Commitment + Platform Section */}
-        <section className="bio-section">
+        {/* Why I'm Running Section */}
+        <section id="why-running" className="bio-section">
           <div className="bio-container">
-            <div className="bio-content-grid">
-              <div className="commitment-block">
-                <span className="sub-title">MY COMMITMENT TO SALEM</span>
-                <h2 className="main-heading">Serving with Integrity and Purpose</h2>
-                <div className="heading-accent-line"></div>
-                
-                <p className="commitment-paragraph">
-                  "Salem is more than just where I live — it’s where my family is growing, where our 
-                  neighbors support one another, and where our children are learning to build the future. 
-                  I believe that local government works best when it is active, approachable, and 
-                  transparent. Together, we can build a city that honors its heritage while looking 
-                  confidently toward the future."
+            <div className="commitment-block">
+              <span className="sub-title">PURPOSE & RESPONSIBILITY</span>
+              <h2 className="main-heading">Why I'm Running</h2>
+              <div className="heading-accent-line"></div>
+              
+              <div className="bio-narrative">
+                <p>
+                  Salem has given me opportunities that have shaped my life, my family, and my career. 
+                  I believe that when a community has given you so much, you have a responsibility to give something back.
                 </p>
-                
-                <p className="commitment-signature-text">
-                  — Mark Henrickson, Candidate for Salem City Council
+                <p>
+                  Throughout my career, I have spent decades solving problems. Every construction project begins with 
+                  listening carefully, understanding the challenges, balancing priorities, managing resources, and working 
+                  together toward a successful outcome. Those same principles apply to public service.
+                </p>
+                <p>
+                  I am running because I believe Salem deserves leaders who will listen carefully, make thoughtful decisions, 
+                  spend taxpayer dollars wisely, and plan responsibly for future generations.
+                </p>
+                <p>
+                  Our city has many strengths: outstanding schools, safe neighborhoods, strong civic pride, dedicated public 
+                  servants, and people who genuinely care about one another. My goal is to protect those strengths while 
+                  preparing Salem for the opportunities ahead.
+                </p>
+                <p>
+                  I am not running to make promises that cannot be kept. I am running to bring experience, integrity, 
+                  practical problem-solving, and a lifetime of service to the work of local government. Together, we can 
+                  preserve the character that makes Salem special while building an even stronger future.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* My Values Section */}
+        <section id="values" className="values-section">
+          <div className="values-container">
+            <span className="sub-title">GUIDING PRINCIPLES</span>
+            <h2 className="main-heading">My Values</h2>
+            <div className="heading-accent-line"></div>
+            <p className="join-text-desc">
+              Everything I do is guided by a few simple principles that have shaped my life for decades.
+            </p>
+
+            <div className="values-grid">
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">⚖️</span>
+                  <h3>Integrity</h3>
+                </div>
+                <p>
+                  People deserve leaders whose word can be trusted. Integrity means doing the right thing, 
+                  even when no one is watching.
                 </p>
               </div>
 
-              {/* Platform block directly integrated here */}
-              <div className="platform-block" id="platform">
-                <span className="sub-title">THE VISION FOR SALEM</span>
-                <h2 className="main-heading">Campaign Platform</h2>
-                <div className="heading-accent-line"></div>
-                
-                <div className="platform-card-grid">
-                  <div className="platform-item">
-                    <div className="platform-item-icon">🏗️</div>
-                    <div className="platform-item-body">
-                      <h3>Sustainable Housing & Planning</h3>
-                      <p>
-                        Promote balanced zoning policies that encourage affordable and middle-density 
-                        housing, ensuring Salem remains welcoming and accessible to families and seniors alike.
-                      </p>
-                    </div>
-                  </div>
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">💡</span>
+                  <h3>Common Sense</h3>
+                </div>
+                <p>
+                  Good decisions come from listening carefully, asking thoughtful questions, and focusing on 
+                  practical solutions instead of unnecessary conflict.
+                </p>
+              </div>
 
-                  <div className="platform-item">
-                    <div className="platform-item-icon">🛡️</div>
-                    <div className="platform-item-body">
-                      <h3>Public Safety & Community Trust</h3>
-                      <p>
-                        Support community-oriented policing initiatives, emergency services, and mental 
-                        health resources to guarantee safe, secure neighborhoods and strong community bonds.
-                      </p>
-                    </div>
-                  </div>
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">🤝</span>
+                  <h3>Service</h3>
+                </div>
+                <p>
+                  Leadership is about serving others, not serving yourself. My involvement in Rotary, my church, 
+                  the Planning Commission, and community organizations reflects my commitment to giving back.
+                </p>
+              </div>
 
-                  <div className="platform-item">
-                    <div className="platform-item-icon">🚶</div>
-                    <div className="platform-item-body">
-                      <h3>Infrastructure Renewal</h3>
-                      <p>
-                        Prioritize localized investments in street repairs, safe sidewalks, protected 
-                        cycling paths, and comprehensive public transport, building options fit for the 21st century.
-                      </p>
-                    </div>
-                  </div>
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">🏛️</span>
+                  <h3>Fiscal Responsibility</h3>
+                </div>
+                <p>
+                  Every tax dollar represents someone's hard work. Government should manage public resources with 
+                  the same care and responsibility that families and businesses use every day.
+                </p>
+              </div>
 
-                  <div className="platform-item">
-                    <div className="platform-item-icon">📊</div>
-                    <div className="platform-item-body">
-                      <h3>Fiscal Transparency & Business</h3>
-                      <p>
-                        Advocate for strict fiscal oversight of city budgets and support Salem's local 
-                        merchants and small business owners with simplified, sensible regulatory frameworks.
-                      </p>
-                    </div>
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">💬</span>
+                  <h3>Respect</h3>
+                </div>
+                <p>
+                  Every citizen deserves to be heard. Even when opinions differ, respectful conversation leads 
+                  to better decisions.
+                </p>
+              </div>
+
+              <div className="value-card">
+                <div className="value-card-header">
+                  <span className="value-icon">🔭</span>
+                  <h3>Vision</h3>
+                </div>
+                <p>
+                  Leadership requires planning beyond today. Good communities prepare for future generations 
+                  while protecting the values that make them special.
+                </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Building a Career & Serving Salem */}
+        <section id="experience" className="commitment-platform-section">
+          <div className="bio-container">
+            <span className="sub-title">EXPERIENCE & DEDICATION</span>
+            <h2 className="main-heading">Building a Career... Building a Community</h2>
+            <div className="heading-accent-line"></div>
+
+            <div className="story-grid">
+              <div className="story-text">
+                <div className="bio-narrative">
+                  <p>
+                    My career has been about much more than construction. Every project begins with someone's dream. 
+                    My job has always been to listen carefully, understand their goals, develop practical solutions, 
+                    manage budgets responsibly, and deliver results that stand the test of time.
+                  </p>
+                  <p>
+                    Over the years, I have worked with homeowners, architects, engineers, subcontractors, lenders, 
+                    inspectors, and local governments. Construction teaches valuable lessons about leadership: patience, 
+                    preparation, accountability, and the importance of making decisions that balance quality, cost, and long-term value.
+                  </p>
+                  <p>
+                    Those experiences have prepared me to approach public service with the same practical mindset: 
+                    listen carefully, solve problems thoughtfully, and always keep the community's long-term interests at heart.
+                  </p>
+                </div>
+              </div>
+
+              <div className="story-photo-wrapper">
+                <img
+                  src="/images/mark-henrickson-3.png"
+                  alt="Mark Henrickson in Salem"
+                  className="story-photo"
+                />
+                <div className="story-photo-caption">
+                  Mark Henrickson — Dedicated to serving Salem families and businesses.
+                </div>
+              </div>
+            </div>
+
+            {/* Lessons That Shaped Me */}
+            <div className="commitment-block" style={{ marginTop: '4rem' }}>
+              <span className="sub-title">FOUNDATIONS</span>
+              <h2 className="main-heading">Lessons That Shaped Me</h2>
+              <div className="heading-accent-line"></div>
+
+              <div className="lessons-grid">
+                <div className="lesson-card">
+                  <strong>Parents</strong>
+                  <span>Taught compassion, humility, faith, and service.</span>
+                </div>
+                <div className="lesson-card">
+                  <strong>Construction</strong>
+                  <span>Taught responsibility, planning, and accountability.</span>
+                </div>
+                <div className="lesson-card">
+                  <strong>Church</strong>
+                  <span>Taught that leadership begins with serving others.</span>
+                </div>
+                <div className="lesson-card">
+                  <strong>Rotary</strong>
+                  <span>Taught the importance of putting "Service Above Self."</span>
+                </div>
+                <div className="lesson-card">
+                  <strong>Volunteering</strong>
+                  <span>Reminded that small acts of kindness make the greatest difference.</span>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Platform Section */}
+        <section className="bio-section" id="platform">
+          <div className="bio-container">
+            <div className="platform-block">
+              <span className="sub-title">THE VISION FOR SALEM</span>
+              <h2 className="main-heading">Campaign Platform</h2>
+              <div className="heading-accent-line"></div>
+              
+              <p className="join-text-desc" style={{ marginBottom: '2.5rem' }}>
+                Salem is already a wonderful community, but every community must continue preparing for the future. 
+                I believe we can preserve the character that makes Salem unique while encouraging thoughtful growth that benefits everyone.
+              </p>
+
+              <div className="platform-card-grid">
+                <div className="platform-item">
+                  <div className="platform-item-icon">🛡️</div>
+                  <div className="platform-item-body">
+                    <h3>Maintaining Safe Neighborhoods</h3>
+                    <p>
+                      Supporting our dedicated police and emergency responders to ensure every Salem neighborhood 
+                      remains safe, secure, and welcoming for families.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">🎓</div>
+                  <div className="platform-item-body">
+                    <h3>Supporting Outstanding Public Schools</h3>
+                    <p>
+                      Investing in quality education, classroom resources, and safe school infrastructure to empower 
+                      our students, teachers, and future generations.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">🏡</div>
+                  <div className="platform-item-body">
+                    <h3>Responsible Growth & Planning</h3>
+                    <p>
+                      Encouraging responsible residential and business growth that balances community needs while 
+                      preserving the unique character of our city.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">🛣️</div>
+                  <div className="platform-item-body">
+                    <h3>Wise Infrastructure Investments</h3>
+                    <p>
+                      Investing wisely in essential infrastructure—roads, water, sewer, parks, green spaces, and modern 
+                      technology systems built for long-term value.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">💼</div>
+                  <div className="platform-item-body">
+                    <h3>Supporting Local Businesses</h3>
+                    <p>
+                      Backing local merchants and small business owners with sensible regulatory frameworks and 
+                      fostering a thriving regional economy.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">👨‍👩‍👧</div>
+                  <div className="platform-item-body">
+                    <h3>Opportunities for Families & Seniors</h3>
+                    <p>
+                      Expanding recreational opportunities, accessible community programs, and quality services tailored 
+                      for young families and senior residents.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">🏙️</div>
+                  <div className="platform-item-body">
+                    <h3>Vibrant Downtown Destination</h3>
+                    <p>
+                      Strengthening downtown Salem as a vibrant, attractive hub for local commerce, culture, events, 
+                      and community gatherings.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="platform-item">
+                  <div className="platform-item-icon">💰</div>
+                  <div className="platform-item-body">
+                    <h3>Managing Taxpayer Dollars Responsibly</h3>
+                    <p>
+                      Exercising strict fiscal oversight over city budgets so every tax dollar is managed with transparency, 
+                      care, and maximum public benefit.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -555,10 +779,10 @@ export function App() {
           </div>
         </section>
 
-        {/* Call-to-Action Section */}
+        {/* Call-to-Action / Get Involved Section */}
         <section id="join" className="join-section">
           <div className="join-container">
-            <span className="sub-title">SUPPORT THE MOVEMENT</span>
+            <span className="sub-title">LOOKING AHEAD</span>
             <h2 className="main-heading">Join the Campaign</h2>
             <div className="heading-accent-line"></div>
 
@@ -566,30 +790,30 @@ export function App() {
               Want to help? Ways to volunteer are coming soon.
             </p>
             <p className="join-text-desc">
-              Every campaign is built on community energy. While we prepare our official 
-              volunteer sign-ups and lawn sign distributions, you can get in touch with us 
-              directly or help spread our community-first vision online.
+              The future of Salem is bright. By working together, listening to one another, and planning 
+              responsibly, we can preserve everything we love about Salem while creating new opportunities 
+              for future generations. It would be an honor to earn your trust and support.
             </p>
 
             <div className="join-options-grid">
               <a href="mailto:info@henricksonforsalem.com" className="join-option-card">
                 <div className="option-icon">📧</div>
                 <h3>Get in Touch</h3>
-                <p>Email us directly at info@henricksonforsalem.com to share your concerns or ask questions.</p>
+                <p>Email us directly at info@henricksonforsalem.com to share your thoughts, questions, or concerns.</p>
                 <span className="option-link-text">Send an Email →</span>
               </a>
 
               <a href="mailto:info@henricksonforsalem.com?subject=Yard%20Sign%20Request" className="join-option-card">
                 <div className="option-icon">🏡</div>
                 <h3>Request a Yard Sign</h3>
-                <p>Sign up to receive one of our campaign lawn signs as soon as they are manufactured.</p>
+                <p>Sign up to receive one of our campaign lawn signs as soon as they are available.</p>
                 <span className="option-link-text">Express Interest →</span>
               </a>
 
               <a href="#platform" className="join-option-card">
                 <div className="option-icon">📢</div>
                 <h3>Spread the Word</h3>
-                <p>Explore our platform, talk to your neighbors, and share our vision for a better Salem.</p>
+                <p>Explore our platform, talk to your neighbors, and share our vision for a stronger Salem.</p>
                 <span className="option-link-text">Read Our Goals →</span>
               </a>
             </div>
@@ -618,6 +842,12 @@ export function App() {
             <ul className="footer-links">
               <li>
                 <a href="#about">Meet Mark</a>
+              </li>
+              <li>
+                <a href="#why-running">Why I'm Running</a>
+              </li>
+              <li>
+                <a href="#values">My Values</a>
               </li>
               <li>
                 <a href="#platform">The Platform</a>
