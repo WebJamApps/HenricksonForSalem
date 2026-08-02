@@ -1048,8 +1048,10 @@ export function App() {
                       required
                     />
                     <span>
-                      I give permission for the sign to be installed where visible to the street.{' '}
-                      <span className="required-star">*</span>
+                      I give permission for the sign to be installed where visible to the{' '}
+                      <span className="no-wrap-text">
+                        street. <span className="required-star">*</span>
+                      </span>
                     </span>
                   </label>
                 </div>
