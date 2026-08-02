@@ -12,7 +12,7 @@ test.describe('Campaign Site - Desktop', () => {
     }
   });
 
-  test('should render hero and footer social links', async ({ page, isMobile }) => {
+  test('should render hero, yard sign form, and footer disclosure', async ({ page, isMobile }) => {
     if (isMobile) return;
 
     // Hero renders
@@ -20,13 +20,11 @@ test.describe('Campaign Site - Desktop', () => {
     await expect(heroTitle).toBeVisible();
     await expect(heroTitle).toContainText('Mark Henrickson');
 
-    // Footer social links present
+    // Footer disclosure present and social links hidden
+    const disclosure = page.locator('.disclosure-box');
+    await expect(disclosure).toBeVisible();
     const facebookLink = page.locator('a[aria-label="Facebook"]');
-    const youtubeLink = page.locator('a[aria-label="YouTube"]');
-    const instagramLink = page.locator('a[aria-label="Instagram"]');
-    await expect(facebookLink).toBeVisible();
-    await expect(youtubeLink).toBeVisible();
-    await expect(instagramLink).toBeVisible();
+    await expect(facebookLink).not.toBeVisible();
   });
 
   test('should not show hamburger menu and should have functional inline nav and theme toggle', async ({ page, isMobile }) => {
@@ -62,16 +60,16 @@ test.describe('Campaign Site - Mobile', () => {
     }
   });
 
-  test('should render hero and footer social links on mobile', async ({ page, isMobile }) => {
+  test('should render hero and footer disclosure on mobile', async ({ page, isMobile }) => {
     if (!isMobile) return;
 
     // Hero renders
     const heroTitle = page.locator('.hero-title');
     await expect(heroTitle).toBeVisible();
 
-    // Footer social links present
-    const facebookLink = page.locator('a[aria-label="Facebook"]');
-    await expect(facebookLink).toBeVisible();
+    // Footer disclosure present
+    const disclosure = page.locator('.disclosure-box');
+    await expect(disclosure).toBeVisible();
   });
 
   test('should support mobile hamburger menu, links, escape key and theme toggling with persistence', async ({ page, isMobile }) => {
