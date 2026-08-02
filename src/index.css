@@ -1328,3 +1328,125 @@ h1, h2, h3, h4, h5, h6 {
   line-height: 1.5;
 }
 
+/* Yard Sign Request Form Styles */
+.yard-sign-form-container {
+  background: var(--bg-primary);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 2.5rem;
+  margin-top: 3.5rem;
+  text-align: left;
+  box-shadow: var(--shadow-md);
+}
+
+.yard-sign-form-header h3 {
+  font-size: 1.5rem;
+  color: var(--text-title);
+  margin-bottom: 0.5rem;
+  font-family: var(--font-display);
+}
+
+.yard-sign-form-header p {
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  margin-bottom: 2rem;
+}
+
+.yard-sign-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.form-group label {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 0.95rem;
+  color: var(--text-title);
+}
+
+.required-star {
+  color: var(--color-accent-red);
+}
+
+.form-control {
+  background: var(--bg-secondary);
+  border: 1px solid var(--color-border);
+  border-radius: 6px;
+  padding: 0.75rem 1rem;
+  font-size: 1rem;
+  color: var(--text-body);
+  transition: var(--transition-smooth);
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.form-control:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px var(--bg-tertiary);
+}
+
+.radio-group {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.radio-label,
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.95rem;
+  color: var(--text-body);
+  cursor: pointer;
+}
+
+.radio-label input,
+.checkbox-label input {
+  width: 18px;
+  height: 18px;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.form-error-msg {
+  background: rgba(220, 38, 38, 0.1);
+  border: 1px solid rgba(220, 38, 38, 0.3);
+  color: #dc2626;
+  padding: 0.75rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.form-success-msg {
+  background: rgba(16, 185, 129, 0.1);
+  border: 1px solid rgba(16, 185, 129, 0.3);
+  color: #059669;
+  padding: 1.25rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  line-height: 1.6;
+}
+
+.form-success-msg a {
+  color: #059669;
+  font-weight: 700;
+  text-decoration: underline;
+}
+
+.form-submit-btn {
+  align-self: flex-start;
+  cursor: pointer;
+  border: none;
+}
+
+
