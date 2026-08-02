@@ -943,7 +943,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-name">
-                    Full Name <span className="required-star">*</span>
+                    Full <span className="no-wrap-text">Name&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-name"
@@ -959,7 +959,7 @@ export function App() {
 
                 <div className="form-group">
                   <span className="form-label-title">
-                    Property Type <span className="required-star">*</span>
+                    Property <span className="no-wrap-text">Type&nbsp;<span className="required-star">*</span></span>
                   </span>
                   <div className="radio-group">
                     <label className="radio-label">
@@ -990,7 +990,7 @@ export function App() {
                 {propertyType === 'business' && (
                   <div className="form-group">
                     <label htmlFor="yard-sign-business">
-                      Business Name <span className="required-star">*</span>
+                      Business <span className="no-wrap-text">Name&nbsp;<span className="required-star">*</span></span>
                     </label>
                     <input
                       id="yard-sign-business"
@@ -1007,7 +1007,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-address">
-                    Physical Address (Must be in Salem, VA) <span className="required-star">*</span>
+                    Physical Address (Must be in Salem, <span className="no-wrap-text">VA)&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-address"
@@ -1023,7 +1023,7 @@ export function App() {
 
                 <div className="form-group">
                   <label htmlFor="yard-sign-phone">
-                    Contact Phone Number <span className="required-star">*</span>
+                    Contact Phone <span className="no-wrap-text">Number&nbsp;<span className="required-star">*</span></span>
                   </label>
                   <input
                     id="yard-sign-phone"
@@ -1050,7 +1050,7 @@ export function App() {
                     <span>
                       I give permission for the sign to be installed where visible to the{' '}
                       <span className="no-wrap-text">
-                        street. <span className="required-star">*</span>
+                        street.&nbsp;<span className="required-star">*</span>
                       </span>
                     </span>
                   </label>
@@ -1078,15 +1078,17 @@ export function App() {
       <footer className="campaign-footer">
         <div className="footer-content">
           <div className="footer-brand">
-            <svg
-              className="footer-logo-icon"
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
-            </svg>
-            <h3>MARK HENRICKSON FOR SALEM</h3>
+            <div className="footer-brand-title">
+              <svg
+                className="footer-logo-icon"
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2" />
+              </svg>
+              <h3>MARK HENRICKSON FOR SALEM</h3>
+            </div>
             <p>Building a stronger, more connected Salem together.</p>
           </div>
 
