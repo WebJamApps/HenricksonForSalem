@@ -2,6 +2,7 @@
  * @file index.tsx
  * @description Main application layout for Mark Henrickson for Salem City Council campaign.
  * Updated with official campaign text & photos from Dropbox (Initial Website content.docx & Images).
+ * Incorporated Maria's 37-point desktop website review (Issue #57).
  */
 
 import { useState, useEffect } from 'react';
@@ -317,9 +318,8 @@ export function App() {
               Mark Henrickson <br />
               <span className="hero-title-accent">for Salem City Council</span>
             </h1>
-            <p className="hero-subtitle">
-              Building a Stronger Salem Together. Mark is dedicated to practical leadership, 
-              thoughtful planning, and common-sense decision-making for our city's future.
+            <p className="hero-subtitle hero-subtitle-lead">
+              Building a Stronger Salem Together.
             </p>
             <div className="quote-banner">
               <p>
@@ -434,7 +434,9 @@ export function App() {
                 <p>
                   Throughout this website, I hope you'll learn about my background, my values, and my vision 
                   for Salem's future. More importantly, I hope you'll see that my goal is simple: to listen, 
-                  to lead with integrity, and to help ensure that Salem remains the community we are all proud to call home.
+                  to lead with integrity, and to help ensure that Salem remains the community we are all 
+                  proud to call home. Thank you for visiting. I look forward to meeting you personally 
+                  during this campaign.
                 </p>
               </div>
 
@@ -445,13 +447,13 @@ export function App() {
           </div>
         </section>
 
-        {/* Meet the Candidate / About Section */}
+        {/* Meet Mark / About Section */}
         <section id="about" className="commitment-platform-section">
           <div className="mid-grid">
             <div className="mid-text-col">
               <div className="bio-block">
-                <span className="sub-title">MEET THE CANDIDATE</span>
-                <h2 className="main-heading">About Mark Henrickson</h2>
+                <span className="sub-title">ABOUT THE CANDIDATE</span>
+                <h2 className="main-heading">Meet Mark Henrickson</h2>
                 <div className="heading-accent-line"></div>
 
                 <div className="bio-narrative">
@@ -473,7 +475,10 @@ export function App() {
                     before launching his own construction company.
                   </p>
                   <p>
-                    Eventually, Salem called him home. Returning to the community that shaped him, Mark built a successful 
+                    Eventually, Salem called him home.
+                  </p>
+                  <p>
+                    Returning to the community that shaped him, Mark built a successful 
                     construction and development business that has served families and businesses throughout the Roanoke Valley 
                     for more than thirty years.
                   </p>
@@ -498,6 +503,7 @@ export function App() {
                 </div>
               </div>
 
+              {/* Professional & Civic Summary Box (Kept per decision #5) */}
               <div className="bio-stats-card">
                 <h3 className="stats-heading">Professional & Civic Background</h3>
                 <ul className="stats-list">
@@ -581,8 +587,10 @@ export function App() {
                 </p>
                 <p>
                   I am not running to make promises that cannot be kept. I am running to bring experience, integrity, 
-                  practical problem-solving, and a lifetime of service to the work of local government. Together, we can 
-                  preserve the character that makes Salem special while building an even stronger future.
+                  practical problem-solving, and a lifetime of service to the work of local government.
+                </p>
+                <p>
+                  Together, we can preserve the character that makes Salem special while building an even stronger future.
                 </p>
               </div>
             </div>
@@ -646,7 +654,7 @@ export function App() {
 
               <div className="value-card">
                 <div className="value-card-header">
-                  <span className="value-icon">💬</span>
+                  <span className="value-icon">❤️</span>
                   <h3>Respect</h3>
                 </div>
                 <p>
@@ -669,7 +677,7 @@ export function App() {
           </div>
         </section>
 
-        {/* Building a Career & Serving Salem */}
+        {/* Building a Career & Building a Community */}
         <section id="experience" className="commitment-platform-section">
           <div className="bio-container">
             <span className="sub-title">EXPERIENCE & DEDICATION</span>
@@ -680,14 +688,20 @@ export function App() {
               <div className="story-text">
                 <div className="bio-narrative">
                   <p>
-                    My career has been about much more than construction. Every project begins with someone's dream. 
+                    My career has been about much more than construction.
+                  </p>
+                  <p>
+                    Every project begins with someone's dream. 
                     My job has always been to listen carefully, understand their goals, develop practical solutions, 
                     manage budgets responsibly, and deliver results that stand the test of time.
                   </p>
                   <p>
                     Over the years, I have worked with homeowners, architects, engineers, subcontractors, lenders, 
-                    inspectors, and local governments. Construction teaches valuable lessons about leadership: patience, 
-                    preparation, accountability, and the importance of making decisions that balance quality, cost, and long-term value.
+                    inspectors, and local governments. Every project presented different challenges. Every successful project required teamwork.
+                  </p>
+                  <p>
+                    Construction teaches valuable lessons about leadership. It teaches patience, preparation, accountability, and the 
+                    importance of making decisions that balance quality, cost, and long-term value.
                   </p>
                   <p>
                     Those experiences have prepared me to approach public service with the same practical mindset: 
@@ -708,11 +722,42 @@ export function App() {
               </div>
             </div>
 
+            {/* Serving Salem Section (Added per decision #3) */}
+            <div className="commitment-block" style={{ marginTop: '4rem' }}>
+              <span className="sub-title">COMMUNITY DEDICATION</span>
+              <h2 className="main-heading">Serving Salem</h2>
+              <div className="heading-accent-line"></div>
+              
+              <div className="bio-narrative">
+                <p>
+                  Service has always been an important part of my life.
+                </p>
+                <p>
+                  Whether through my church, the Rotary Club, community organizations, or the Salem Planning Commission, 
+                  I have always believed that strong communities are built by people willing to give their time, talents, 
+                  and experience.
+                </p>
+                <p>
+                  One of the greatest privileges has been volunteering in ways that bring joy to others—from mentoring 
+                  young people to serving as Santa Claus for local children during community events. Those experiences 
+                  remind me that leadership is not measured only by the decisions we make but also by the lives we touch.
+                </p>
+                <p>
+                  Service has never been something I started because I decided to run for office. It has been a lifelong 
+                  commitment to making Salem an even better place to live, work, and raise a family.
+                </p>
+              </div>
+            </div>
+
             {/* Lessons That Shaped Me */}
             <div className="commitment-block" style={{ marginTop: '4rem' }}>
               <span className="sub-title">FOUNDATIONS</span>
               <h2 className="main-heading">Lessons That Shaped Me</h2>
               <div className="heading-accent-line"></div>
+
+              <p className="join-text-desc" style={{ marginBottom: '1.5rem', textAlign: 'left' }}>
+                Every stage of my life has taught lessons that continue to guide me today.
+              </p>
 
               <div className="lessons-grid">
                 <div className="lesson-card">
@@ -736,6 +781,59 @@ export function App() {
                   <span>Reminded that small acts of kindness make the greatest difference.</span>
                 </div>
               </div>
+
+              <p className="join-text-desc" style={{ marginTop: '1.5rem', textAlign: 'left' }}>
+                Every one of those experiences has prepared me for public service.
+              </p>
+            </div>
+
+            {/* Why Experience Matters Section (Added per decision #3) */}
+            <div className="commitment-block" style={{ marginTop: '4rem' }}>
+              <span className="sub-title">PRACTICAL LEADERSHIP</span>
+              <h2 className="main-heading">Why Experience Matters</h2>
+              <div className="heading-accent-line"></div>
+              
+              <div className="bio-narrative">
+                <p>
+                  Experience is not about titles.
+                </p>
+                <p>
+                  It is about learning how to solve problems, manage resources, build consensus, and make difficult decisions.
+                </p>
+                <p>
+                  For more than forty years, I have worked with people from every walk of life. I have balanced budgets, 
+                  navigated regulations, solved unexpected challenges, and earned the trust of families and businesses 
+                  throughout our region.
+                </p>
+                <p>
+                  Those experiences have prepared me to serve Salem with practical leadership grounded in honesty, 
+                  integrity, and common sense.
+                </p>
+              </div>
+            </div>
+
+            {/* Looking Ahead Section (Added per decision #3) */}
+            <div className="commitment-block" style={{ marginTop: '4rem' }}>
+              <span className="sub-title">FUTURE OF SALEM</span>
+              <h2 className="main-heading">Looking Ahead</h2>
+              <div className="heading-accent-line"></div>
+              
+              <div className="bio-narrative">
+                <p>
+                  The future of Salem is bright.
+                </p>
+                <p>
+                  We have strong neighborhoods, outstanding schools, thriving businesses, and citizens who care deeply 
+                  about their community.
+                </p>
+                <p>
+                  By working together, listening to one another, and planning responsibly, we can preserve everything we 
+                  love about Salem while creating new opportunities for future generations.
+                </p>
+                <p>
+                  It would be an honor to earn your trust and your support as we continue building a stronger Salem together.
+                </p>
+              </div>
             </div>
           </div>
         </section>
@@ -744,13 +842,18 @@ export function App() {
         <section className="bio-section" id="platform">
           <div className="bio-container">
             <div className="platform-block">
-              <span className="sub-title">THE VISION FOR SALEM</span>
-              <h2 className="main-heading">Campaign Platform</h2>
+              <span className="sub-title">LOOKING AHEAD</span>
+              <h2 className="main-heading">My Vision for Salem</h2>
               <div className="heading-accent-line"></div>
               
-              <p className="join-text-desc" style={{ marginBottom: '2.5rem' }}>
-                Salem is already a wonderful community, but every community must continue preparing for the future. 
+              <p className="join-text-desc">
+                Salem is already a wonderful community, but every community must continue preparing for the future.
+              </p>
+              <p className="join-text-desc" style={{ marginBottom: '1.5rem' }}>
                 I believe we can preserve the character that makes Salem unique while encouraging thoughtful growth that benefits everyone.
+              </p>
+              <p className="join-text-desc" style={{ fontWeight: 600, color: 'var(--accent-navy)', marginBottom: '2rem' }}>
+                My priorities include:
               </p>
 
               <div className="platform-card-grid">
@@ -842,6 +945,10 @@ export function App() {
                   </div>
                 </div>
               </div>
+
+              <p className="join-text-desc" style={{ marginTop: '2.5rem', fontWeight: 600 }}>
+                Together, we can build on Salem's strengths while preparing for the next generation.
+              </p>
             </div>
           </div>
         </section>
@@ -849,24 +956,19 @@ export function App() {
         {/* Call-to-Action / Get Involved Section */}
         <section id="join" className="join-section">
           <div className="join-container">
-            <span className="sub-title">LOOKING AHEAD</span>
-            <h2 className="main-heading">Join the Campaign</h2>
+            <span className="sub-title">JOIN THE CAMPAIGN</span>
+            <h2 className="main-heading">Get Involved</h2>
             <div className="heading-accent-line"></div>
 
             <p className="join-text-lead">
               Want to help? Request a yard sign or get in touch with the campaign below.
             </p>
-            <p className="join-text-desc">
-              The future of Salem is bright. By working together, listening to one another, and planning 
-              responsibly, we can preserve everything we love about Salem while creating new opportunities 
-              for future generations. It would be an honor to earn your trust and support.
-            </p>
 
             <div className="join-options-grid">
-              <a href="mailto:henmark1@aol.com" className="join-option-card">
+              <a href="mailto:henmark1@aol.com?subject=Message%20for%20Mark%20Henrickson" className="join-option-card">
                 <div className="option-icon">📧</div>
                 <h3>Get in Touch</h3>
-                <p>Email me directly at Mark Henrickson henmark1@aol.com to share your thoughts, questions, or concerns.</p>
+                <p>Email Mark Henrickson directly at henmark1@aol.com to share your thoughts, questions, or concerns.</p>
                 <span className="option-link-text">Send an Email →</span>
               </a>
 
@@ -1089,7 +1191,7 @@ export function App() {
               </svg>
               <h3>MARK HENRICKSON FOR SALEM</h3>
             </div>
-            <p>Building a stronger, more connected Salem together.</p>
+            <p>Building a Stronger Salem Together</p>
           </div>
 
           <div className="footer-links-group">
@@ -1105,15 +1207,13 @@ export function App() {
                 <a href="#values">My Values</a>
               </li>
               <li>
-                <a href="#platform">The Platform</a>
+                <a href="#platform">Platform</a>
               </li>
               <li>
                 <a href="#join">Get Involved</a>
               </li>
             </ul>
           </div>
-
-          {/* Follow Our Campaign social media links commented out per issue #35 */}
         </div>
 
         <div className="footer-disclosure">
