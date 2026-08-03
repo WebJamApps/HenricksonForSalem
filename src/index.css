@@ -285,6 +285,12 @@ h1, h2, h3, h4, h5, h6 {
   margin-bottom: 2.5rem;
 }
 
+.hero-subtitle-lead {
+  font-size: 1.45rem;
+  font-weight: 600;
+  color: var(--color-primary);
+}
+
 .hero-actions {
   display: flex;
   gap: 1.5rem;
