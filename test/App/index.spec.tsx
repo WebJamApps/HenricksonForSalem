@@ -11,7 +11,7 @@ describe('App', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: 'Mark Henrickson for Salem City Council' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'A Message from Mark' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'A Lifetime of Building, Serving, and Giving Back' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Meet Mark Henrickson' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Why I'm Running" })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'My Values' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'My Vision for Salem' })).toBeInTheDocument();

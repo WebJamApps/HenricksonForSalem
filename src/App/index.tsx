@@ -452,8 +452,8 @@ export function App() {
           <div className="mid-grid">
             <div className="mid-text-col">
               <div className="bio-block">
-                <span className="sub-title">MEET MARK</span>
-                <h2 className="main-heading">A Lifetime of Building, Serving, and Giving Back</h2>
+                <span className="sub-title">ABOUT THE CANDIDATE</span>
+                <h2 className="main-heading">Meet Mark Henrickson</h2>
                 <div className="heading-accent-line"></div>
 
                 <div className="bio-narrative">
