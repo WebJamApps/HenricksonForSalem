@@ -11,10 +11,10 @@ describe('App', () => {
     render(<App />);
     expect(screen.getByRole('heading', { name: 'Mark Henrickson for Salem City Council' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'A Message from Mark' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'About Mark Henrickson' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'A Lifetime of Building, Serving, and Giving Back' })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: "Why I'm Running" })).toBeInTheDocument();
     expect(screen.getByRole('heading', { name: 'My Values' })).toBeInTheDocument();
-    expect(screen.getByRole('heading', { name: 'Campaign Platform' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'My Vision for Salem' })).toBeInTheDocument();
 
     // Verify campaign images loaded from public/images
     const heroImg = screen.getByAltText('Mark Henrickson hero portrait');
@@ -26,10 +26,10 @@ describe('App', () => {
 
   it('renders direct email link to henmark1@aol.com', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { name: 'Join the Campaign' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { name: 'Get Involved' })).toBeInTheDocument();
     const directEmailLink = screen.getByRole('link', { name: /Get in Touch/i });
-    expect(directEmailLink).toHaveAttribute('href', 'mailto:henmark1@aol.com');
-    expect(screen.getByText(/Email me directly at Mark Henrickson henmark1@aol.com/i)).toBeInTheDocument();
+    expect(directEmailLink).toHaveAttribute('href', 'mailto:henmark1@aol.com?subject=Message%20for%20Mark%20Henrickson');
+    expect(screen.getByText(/Email Mark Henrickson directly at henmark1@aol.com/i)).toBeInTheDocument();
   });
 
   it('renders and validates the Yard Sign Request Form modal', () => {
