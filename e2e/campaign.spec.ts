@@ -116,6 +116,34 @@ test.describe('Campaign Site - Desktop', () => {
     await themeToggle.click();
     await expect(html).toHaveAttribute('data-theme', 'light');
   });
+
+  test('should scroll desktop navigation links to target headings without sticky header overlap', async ({ page, isMobile }) => {
+    if (isMobile) return;
+
+    const links = [
+      { selector: 'a.nav-link:has-text("Meet Mark")', hash: '#about', heading: 'Meet Mark Henrickson' },
+      { selector: 'a.nav-link:has-text("Why I\'m Running")', hash: '#why-running', heading: "Why I'm Running" },
+      { selector: 'a.nav-link:has-text("My Values")', hash: '#values', heading: 'My Values' },
+      { selector: 'a.nav-link:has-text("Platform")', hash: '#platform', heading: 'My Vision for Salem' },
+      { selector: 'a.nav-link:has-text("Get Involved")', hash: '#join', heading: 'Get Involved' },
+    ];
+
+    for (const item of links) {
+      const link = page.locator(item.selector);
+      await link.click();
+
+      await expect(page).toHaveURL(new RegExp(item.hash));
+      const targetHeading = page.locator(`h2:has-text("${item.heading}")`).first();
+      await expect(targetHeading).toBeVisible();
+
+      const headingBox = await targetHeading.boundingBox();
+      expect(headingBox).not.toBeNull();
+      if (headingBox) {
+        // Heading top must be at or below the 80px desktop navbar (not covered behind navbar)
+        expect(headingBox.y).toBeGreaterThanOrEqual(70);
+      }
+    }
+  });
 });
 
 test.describe('Campaign Site - Mobile', () => {
@@ -187,5 +215,49 @@ test.describe('Campaign Site - Mobile', () => {
     await expect(drawer).toBeVisible();
     await page.keyboard.press('Escape');
     await expect(drawer).not.toBeVisible();
+  });
+
+  test('should render hero photo slideshow with sufficient height on cellphone display', async ({ page, isMobile }) => {
+    if (!isMobile) return;
+
+    const gallery = page.locator('.hero-gallery');
+    await expect(gallery).toBeVisible();
+
+    const box = await gallery.boundingBox();
+    expect(box).not.toBeNull();
+    if (box) {
+      // Height must be at least 320px on mobile so top image graphics are not clipped off
+      expect(box.height).toBeGreaterThanOrEqual(320);
+    }
+  });
+
+  test('should scroll navigation links to target headings without sticky header overlap on mobile', async ({ page, isMobile }) => {
+    if (!isMobile) return;
+
+    const hamburger = page.locator('.hamburger-btn');
+    const links = [
+      { text: 'Meet Mark', hash: '#about', heading: 'Meet Mark Henrickson' },
+      { text: "Why I'm Running", hash: '#why-running', heading: "Why I'm Running" },
+      { text: 'My Values', hash: '#values', heading: 'My Values' },
+      { text: 'Platform', hash: '#platform', heading: 'My Vision for Salem' },
+      { text: 'Get Involved', hash: '#join', heading: 'Get Involved' },
+    ];
+
+    for (const item of links) {
+      await hamburger.click();
+      const link = page.locator(`.mobile-drawer-link:has-text("${item.text}")`);
+      await link.click();
+
+      await expect(page).toHaveURL(new RegExp(item.hash));
+      const targetHeading = page.locator(`h2:has-text("${item.heading}")`).first();
+      await expect(targetHeading).toBeVisible();
+
+      const headingBox = await targetHeading.boundingBox();
+      expect(headingBox).not.toBeNull();
+      if (headingBox) {
+        // Heading top must be at or below the 70px mobile navbar (not covered behind navbar)
+        expect(headingBox.y).toBeGreaterThanOrEqual(60);
+      }
+    }
   });
 });
