@@ -67,6 +67,11 @@ html {
   box-sizing: border-box;
 }
 
+section[id],
+div[id] {
+  scroll-margin-top: 90px;
+}
+
 *, *::before, *::after {
   box-sizing: inherit;
 }
@@ -1015,6 +1020,30 @@ h1, h2, h3, h4, h5, h6 {
   .join-options-grid {
     grid-template-columns: 1fr;
     gap: 1.5rem;
+  }
+
+  section[id],
+  div[id] {
+    scroll-margin-top: 80px;
+  }
+
+  .hero-gallery {
+    max-width: 100%;
+    aspect-ratio: 1 / 1;
+    min-height: 350px;
+  }
+
+  .slide-img {
+    object-fit: cover;
+    object-position: top center;
+  }
+
+  .slide-overlay {
+    padding: 0.85rem 1.15rem;
+  }
+
+  .slide-caption {
+    font-size: 0.85rem;
   }
 }
 
