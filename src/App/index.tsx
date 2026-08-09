@@ -323,7 +323,7 @@ export function App() {
             </p>
             <div className="quote-banner">
               <p>
-                "Mark has spent a lifetime solving problems, earning trust, and taking responsibility. 
+                "Mark has spent a lifetime finding solutions and delivering results, earning trust, and taking responsibility. 
                 That's exactly the kind of person we want helping lead Salem."
               </p>
             </div>
@@ -427,14 +427,14 @@ export function App() {
                   I want you to know who I am, what has shaped my life, and why I have chosen to serve our community.
                 </p>
                 <p>
-                  Salem has been my home for most of my life. It is where I grew up, built my business, and 
-                  devoted countless hours to serving alongside friends and neighbors. My commitment to this 
+                  Salem has been my home for most of my life. It is where I grew up, built my business, took care 
+                  of a family and devoted countless hours to serving alongside friends and neighbors. My commitment to this 
                   community has never been about politics—it has always been about people.
                 </p>
                 <p>
                   Throughout this website, I hope you'll learn about my background, my values, and my vision 
                   for Salem's future. More importantly, I hope you'll see that my goal is simple: to listen, 
-                  to lead with integrity, and to help ensure that Salem remains the community we are all 
+                  to lead with integrity, and to help ensure that as it grows Salem remains the community we are all 
                   proud to call home. Thank you for visiting. I look forward to meeting you personally 
                   during this campaign.
                 </p>
@@ -463,7 +463,7 @@ export function App() {
                     the community he loves.
                   </p>
                   <p>
-                    Growing up in Salem, Mark learned the importance of faith, compassion, hard work, and personal 
+                    Growing up in Salem, Mark learned the importance of faith, family, compassion, hard work, and personal 
                     responsibility from his parents. His father devoted his career to caring for children through a 
                     Lutheran children's home, while his mother demonstrated quiet strength through her dedication 
                     to family, faith, and serving others. Those values continue to guide Mark today.
@@ -572,7 +572,7 @@ export function App() {
                   I believe that when a community has given you so much, you have a responsibility to give something back.
                 </p>
                 <p>
-                  Throughout my career, I have spent decades solving problems. Every construction project begins with 
+                  Throughout my career, I have spent decades turning ideas into action. Every construction project begins with 
                   listening carefully, understanding the challenges, balancing priorities, managing resources, and working 
                   together toward a successful outcome. Those same principles apply to public service.
                 </p>
@@ -611,11 +611,12 @@ export function App() {
               <div className="value-card">
                 <div className="value-card-header">
                   <span className="value-icon">⚖️</span>
-                  <h3>Integrity</h3>
+                  <h3>Integrity and Respect</h3>
                 </div>
                 <p>
                   People deserve leaders whose word can be trusted. Integrity means doing the right thing, 
-                  even when no one is watching.
+                  even when no one is watching. Every citizen deserves to be heard. Even when opinions differ, 
+                  respectful conversation leads to better decisions.
                 </p>
               </div>
 
@@ -649,17 +650,6 @@ export function App() {
                 <p>
                   Every tax dollar represents someone's hard work. Government should manage public resources with 
                   the same care and responsibility that families and businesses use every day.
-                </p>
-              </div>
-
-              <div className="value-card">
-                <div className="value-card-header">
-                  <span className="value-icon">❤️</span>
-                  <h3>Respect</h3>
-                </div>
-                <p>
-                  Every citizen deserves to be heard. Even when opinions differ, respectful conversation leads 
-                  to better decisions.
                 </p>
               </div>
 
@@ -705,7 +695,8 @@ export function App() {
                   </p>
                   <p>
                     Those experiences have prepared me to approach public service with the same practical mindset: 
-                    listen carefully, solve problems thoughtfully, and always keep the community's long-term interests at heart.
+                    listen carefully, solve problems and seek opportunities thoughtfully, and always keep the 
+                    community's long-term interests at heart.
                   </p>
                 </div>
               </div>
@@ -763,6 +754,14 @@ export function App() {
                 <div className="lesson-card">
                   <strong>Parents</strong>
                   <span>Taught compassion, humility, faith, and service.</span>
+                </div>
+                <div className="lesson-card">
+                  <strong>Sports</strong>
+                  <span>
+                    Taught that success is never about one person. It comes from preparation, discipline, 
+                    teamwork and doing your part. Those are the same principles I've tried to bring to my 
+                    business, my volunteer work and my service to Salem.
+                  </span>
                 </div>
                 <div className="lesson-card">
                   <strong>Construction</strong>
@@ -829,6 +828,11 @@ export function App() {
                 <p>
                   By working together, listening to one another, and planning responsibly, we can preserve everything we 
                   love about Salem while creating new opportunities for future generations.
+                </p>
+                <p>
+                  I don't pretend to have all the answers. What I bring is a lifetime of experience, a willingness 
+                  to listen, the judgement to make good decisions and a sincere commitment to do what's best 
+                  for the people of Salem.
                 </p>
                 <p>
                   It would be an honor to earn your trust and your support as we continue building a stronger Salem together.
@@ -1218,7 +1222,7 @@ export function App() {
 
         <div className="footer-disclosure">
           <div className="disclosure-box">
-            PAID FOR BY THE COMMITTEE TO ELECT MARK HENRICKSON
+            PAID FOR BY HENRICKSON FOR SALEM
           </div>
           <p className="copyright-text">
             &copy; {new Date().getFullYear()} Mark Henrickson for Salem. All rights reserved.
