@@ -1225,7 +1225,7 @@ export function App() {
             PAID FOR BY HENRICKSON FOR SALEM
           </div>
           <p className="copyright-text">
-            &copy; {new Date().getFullYear()} Mark Henrickson for Salem. All rights reserved.
+            &copy; {new Date().getFullYear()} Henrickson for Salem. All rights reserved.
           </p>
         </div>
       </footer>
