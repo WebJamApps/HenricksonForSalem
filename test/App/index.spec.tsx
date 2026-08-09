@@ -127,7 +127,7 @@ describe('App', () => {
     expect(screen.queryByLabelText('Facebook')).toBeNull();
     expect(screen.queryByLabelText('YouTube')).toBeNull();
     expect(screen.queryByLabelText('Instagram')).toBeNull();
-    expect(screen.getByText('PAID FOR BY THE COMMITTEE TO ELECT MARK HENRICKSON')).toBeInTheDocument();
+    expect(screen.getByText('PAID FOR BY HENRICKSON FOR SALEM')).toBeInTheDocument();
   });
 
   it('supports rotating hero gallery slides automatically and manually', () => {
