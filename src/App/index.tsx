@@ -117,7 +117,7 @@ export function App() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide(prev => (prev + 1) % 7);
+      setActiveSlide(prev => (prev + 1) % 6);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
@@ -393,22 +393,6 @@ export function App() {
                 aria-hidden={activeSlide !== 3}
               >
                 <img
-                  src="/images/MarkA5_20260727_0001.jpg"
-                  alt="Mark Henrickson campaign portrait"
-                  className="slide-img"
-                />
-                <div className="slide-overlay">
-                  <span className="slide-label">LOCAL LEADERSHIP</span>
-                  <p className="slide-caption">Focused on balanced growth and strong municipal services for Salem.</p>
-                </div>
-              </div>
-
-              {/* Slide 5 */}
-              <div
-                className={`gallery-slide ${activeSlide === 4 ? 'active' : 'inactive'}`}
-                aria-hidden={activeSlide !== 4}
-              >
-                <img
                   src="/images/458700220_3378744905766915_7642014917741338566_n.jpg"
                   alt="Mark Henrickson community outreach"
                   className="slide-img"
@@ -419,10 +403,10 @@ export function App() {
                 </div>
               </div>
 
-              {/* Slide 6 */}
+              {/* Slide 5 */}
               <div
-                className={`gallery-slide ${activeSlide === 5 ? 'active' : 'inactive'}`}
-                aria-hidden={activeSlide !== 5}
+                className={`gallery-slide ${activeSlide === 4 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 4}
               >
                 <img
                   src="/images/458715970_3378775542430518_6413879525219153400_n.jpg"
@@ -435,10 +419,10 @@ export function App() {
                 </div>
               </div>
 
-              {/* Slide 7 */}
+              {/* Slide 6 */}
               <div
-                className={`gallery-slide ${activeSlide === 6 ? 'active' : 'inactive'}`}
-                aria-hidden={activeSlide !== 6}
+                className={`gallery-slide ${activeSlide === 5 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 5}
               >
                 <img
                   src="/images/Mark - old pic.jpg"
@@ -453,7 +437,7 @@ export function App() {
 
               {/* Manual navigation indicators */}
               <div className="gallery-bullets">
-                {[0, 1, 2, 3, 4, 5, 6].map(idx => (
+                {[0, 1, 2, 3, 4, 5].map(idx => (
                   <a
                     key={idx}
                     href={`#slide-${idx}`}
@@ -910,7 +894,7 @@ export function App() {
         <section className="bio-section" id="platform">
           <div className="bio-container">
             <div className="platform-block">
-              <span className="sub-title">LOOKING AHEAD</span>
+              <span className="sub-title">PLATFORM</span>
               <h2 className="main-heading">My Vision for Salem</h2>
               <div className="heading-accent-line"></div>
               
