@@ -910,7 +910,7 @@ export function App() {
         <section className="bio-section" id="platform">
           <div className="bio-container">
             <div className="platform-block">
-              <span className="sub-title">LOOKING AHEAD</span>
+              <span className="sub-title">PLATFORM</span>
               <h2 className="main-heading">My Vision for Salem</h2>
               <div className="heading-accent-line"></div>
               
