@@ -117,7 +117,7 @@ export function App() {
 
   useEffect(() => {
     const timer = setInterval(() => {
-      setActiveSlide(prev => (prev + 1) % 3);
+      setActiveSlide(prev => (prev + 1) % 7);
     }, 5000);
     return () => clearInterval(timer);
   }, []);
@@ -387,9 +387,73 @@ export function App() {
                 </div>
               </div>
 
+              {/* Slide 4 */}
+              <div
+                className={`gallery-slide ${activeSlide === 3 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 3}
+              >
+                <img
+                  src="/images/MarkA5_20260727_0001.jpg"
+                  alt="Mark Henrickson campaign portrait"
+                  className="slide-img"
+                />
+                <div className="slide-overlay">
+                  <span className="slide-label">LOCAL LEADERSHIP</span>
+                  <p className="slide-caption">Focused on balanced growth and strong municipal services for Salem.</p>
+                </div>
+              </div>
+
+              {/* Slide 5 */}
+              <div
+                className={`gallery-slide ${activeSlide === 4 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 4}
+              >
+                <img
+                  src="/images/458700220_3378744905766915_7642014917741338566_n.jpg"
+                  alt="Mark Henrickson community outreach"
+                  className="slide-img"
+                />
+                <div className="slide-overlay">
+                  <span className="slide-label">COMMUNITY CONNECTION</span>
+                  <p className="slide-caption">Meeting with neighbors and supporting local Salem initiatives.</p>
+                </div>
+              </div>
+
+              {/* Slide 6 */}
+              <div
+                className={`gallery-slide ${activeSlide === 5 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 5}
+              >
+                <img
+                  src="/images/458715970_3378775542430518_6413879525219153400_n.jpg"
+                  alt="Mark Henrickson meeting residents"
+                  className="slide-img"
+                />
+                <div className="slide-overlay">
+                  <span className="slide-label">ACCESSIBLE GOVERNANCE</span>
+                  <p className="slide-caption">Always open to ideas and feedback from all Salem citizens.</p>
+                </div>
+              </div>
+
+              {/* Slide 7 */}
+              <div
+                className={`gallery-slide ${activeSlide === 6 ? 'active' : 'inactive'}`}
+                aria-hidden={activeSlide !== 6}
+              >
+                <img
+                  src="/images/Mark - old pic.jpg"
+                  alt="Mark Henrickson Salem community background"
+                  className="slide-img"
+                />
+                <div className="slide-overlay">
+                  <span className="slide-label">DECADES OF DEDICATION</span>
+                  <p className="slide-caption">A long-standing history of commitment to Salem's growth and wellbeing.</p>
+                </div>
+              </div>
+
               {/* Manual navigation indicators */}
               <div className="gallery-bullets">
-                {[0, 1, 2].map(idx => (
+                {[0, 1, 2, 3, 4, 5, 6].map(idx => (
                   <a
                     key={idx}
                     href={`#slide-${idx}`}
