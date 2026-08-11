@@ -136,7 +136,7 @@ describe('App', () => {
 
     const bullet1 = screen.getByLabelText('Go to slide 1');
     const bullet2 = screen.getByLabelText('Go to slide 2');
-    const bullet3 = screen.getByLabelText('Go to slide 3');
+    const bullet7 = screen.getByLabelText('Go to slide 7');
 
     expect(bullet1).toHaveClass('active');
     expect(bullet2).not.toHaveClass('active');
@@ -146,16 +146,16 @@ describe('App', () => {
     expect(bullet1).not.toHaveClass('active');
     expect(bullet2).toHaveClass('active');
 
-    // Click bullet 3
-    fireEvent.click(bullet3);
+    // Click bullet 7
+    fireEvent.click(bullet7);
     expect(bullet2).not.toHaveClass('active');
-    expect(bullet3).toHaveClass('active');
+    expect(bullet7).toHaveClass('active');
 
-    // Advance timer by 5 seconds to rotate back to slide 1
+    // Advance timer by 5 seconds to rotate back to slide 1 (wrapping from 7 to 1)
     act(() => {
       vi.advanceTimersByTime(5000);
     });
-    expect(bullet3).not.toHaveClass('active');
+    expect(bullet7).not.toHaveClass('active');
     expect(bullet1).toHaveClass('active');
 
     vi.useRealTimers();
