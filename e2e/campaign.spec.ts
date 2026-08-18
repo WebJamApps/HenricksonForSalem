@@ -20,11 +20,11 @@ test.describe('Campaign Site - Desktop', () => {
     await expect(heroTitle).toBeVisible();
     await expect(heroTitle).toContainText('Mark Henrickson');
 
-    // Footer disclosure present and social links hidden
+    // Footer disclosure and Facebook link present
     const disclosure = page.locator('.disclosure-box');
     await expect(disclosure).toBeVisible();
     const facebookLink = page.locator('a[aria-label="Facebook"]');
-    await expect(facebookLink).not.toBeVisible();
+    await expect(facebookLink).toBeVisible();
   });
 
   test('should open, validate, and close the yard sign request modal dialog', async ({ page, isMobile }) => {
