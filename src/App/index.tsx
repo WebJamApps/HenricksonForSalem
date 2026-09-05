@@ -7,8 +7,65 @@
 
 import { useState, useEffect } from 'react';
 
+const storySlides = [
+  {
+    src: '/images/mark-henrickson-3.png',
+    alt: 'Mark Henrickson in Salem',
+    caption: 'Mark Henrickson — Dedicated to serving Salem families and businesses.',
+  },
+  {
+    src: '/images/BottomShow3.jpg',
+    alt: 'Celebrating Mark’s father Roy Henrickson on his 92nd birthday',
+    caption: 'Family — Celebrating Mark’s father, Roy Henrickson, on his 92nd birthday.',
+  },
+  {
+    src: '/images/BottomShow4.jpg',
+    alt: 'Mark playing Santa for local children at Rotary Christmas for Kids',
+    caption: 'Rotary Christmas for Kids — Mark playing Santa for local children at the annual Rotary Christmas for Kids program.',
+  },
+  {
+    src: '/images/BottomShow5.jpg',
+    alt: 'Taking part in Salem High School Homecoming Parade',
+    caption: 'Salem High School Homecoming — Taking part in the Salem High School Homecoming Parade.',
+  },
+  {
+    src: '/images/BottomShow6.jpg',
+    alt: 'Teaching students at the OMNI School in Zambia',
+    caption: 'The OMNI School — Teaching students at the OMNI School in Zambia.',
+  },
+  {
+    src: '/images/BottomShow7.jpg',
+    alt: 'Children at the OMNI School in Zambia welcoming visitors',
+    caption:
+      'The OMNI School, Zambia — A warm welcome from children at the OMNI School who gathered ' +
+      'to meet and greet their visitors.',
+  },
+  {
+    src: '/images/BottomShow8.jpg',
+    alt: 'Mark as Ruff the Rotary Dog at Rotary District 7570 annual conference',
+    caption:
+      'Ruff the Rotary Dog — Mark as “Ruff the Rotary Dog” at the Rotary District 7570 annual conference, ' +
+      'welcoming attendees and helping distribute door prizes.',
+  },
+  {
+    src: '/images/BottomShow9.jpg',
+    alt: 'Mark and future wife Jody at Roanoke College Associates Banquet',
+    caption:
+      'Mark and Jody — Mark and his future wife, Jody, at a Roanoke College Associates Banquet early in their ' +
+      'relationship. They have now been happily married for 23 years.',
+  },
+  {
+    src: '/images/BottomShow10.jpg',
+    alt: 'Mark with 1971 Andrew Lewis High School football team',
+    caption:
+      '1971 Andrew Lewis Football Team — Mark with the 1971 Andrew Lewis High School football team, ' +
+      'Virginia state runner-up to T.C. Williams—the team whose story was later portrayed in Remember the Titans.',
+  },
+];
+
 export function App() {
   const [activeSlide, setActiveSlide] = useState(0);
+  const [activeStorySlide, setActiveStorySlide] = useState(0);
   const [theme, setTheme] = useState<'light' | 'dark'>(() => {
     if (typeof window !== 'undefined') {
       const saved = localStorage.getItem('theme');
@@ -118,9 +175,18 @@ export function App() {
   useEffect(() => {
     const timer = setInterval(() => {
       setActiveSlide(prev => (prev + 1) % 6);
-    }, 5000);
+      setActiveStorySlide(prev => (prev + 1) % storySlides.length);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
+
+  const handlePrevStorySlide = () => {
+    setActiveStorySlide(prev => (prev - 1 + storySlides.length) % storySlides.length);
+  };
+
+  const handleNextStorySlide = () => {
+    setActiveStorySlide(prev => (prev + 1) % storySlides.length);
+  };
 
   const handleLinkClick = () => {
     setIsMenuOpen(false);
@@ -362,7 +428,7 @@ export function App() {
               >
                 <img
                   src="/images/mark-community-1.png"
-                  alt="Mark Henrickson community event"
+                  alt="American flag representing community engagement"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -378,7 +444,7 @@ export function App() {
               >
                 <img
                   src="/images/mark-community-2.png"
-                  alt="Mark Henrickson civic service"
+                  alt="Mark Henrickson Candidate for City Council Moving Salem Forward campaign sign"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -394,7 +460,7 @@ export function App() {
               >
                 <img
                   src="/images/458700220_3378744905766915_7642014917741338566_n.jpg"
-                  alt="Mark Henrickson community outreach"
+                  alt="Mark Henrickson with a young child holding a plush toy during community outreach"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -410,7 +476,7 @@ export function App() {
               >
                 <img
                   src="/images/458715970_3378775542430518_6413879525219153400_n.jpg"
-                  alt="Mark Henrickson meeting residents"
+                  alt="Mark Henrickson with volunteers at a construction project"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -426,7 +492,7 @@ export function App() {
               >
                 <img
                   src="/images/Mark - old pic.jpg"
-                  alt="Mark Henrickson Salem community background"
+                  alt="Mark Henrickson in a suit and tie smiling"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -749,14 +815,63 @@ export function App() {
                 </div>
               </div>
 
-              <div className="story-photo-wrapper">
-                <img
-                  src="/images/mark-henrickson-3.png"
-                  alt="Mark Henrickson in Salem"
-                  className="story-photo"
-                />
-                <div className="story-photo-caption">
-                  Mark Henrickson — Dedicated to serving Salem families and businesses.
+              <div
+                className="story-photo-wrapper"
+                role="region"
+                aria-label="Community service and life photo slideshow"
+              >
+                {storySlides.map((slide, idx) => (
+                  <div
+                    key={slide.src}
+                    className={`story-slide ${activeStorySlide === idx ? 'active' : 'inactive'}`}
+                    aria-hidden={activeStorySlide !== idx}
+                  >
+                    <img
+                      src={slide.src}
+                      alt={slide.alt}
+                      className="story-photo"
+                    />
+                    <div className="story-photo-caption">
+                      {slide.caption}
+                    </div>
+                  </div>
+                ))}
+
+                <button
+                  type="button"
+                  className="story-nav-btn story-nav-prev"
+                  onClick={handlePrevStorySlide}
+                  title="Previous community photo"
+                  aria-label="Previous community photo"
+                >
+                  &#8249;
+                </button>
+                <button
+                  type="button"
+                  className="story-nav-btn story-nav-next"
+                  onClick={handleNextStorySlide}
+                  title="Next community photo"
+                  aria-label="Next community photo"
+                >
+                  &#8250;
+                </button>
+
+                <div className="story-bullets">
+                  {storySlides.map((_, idx) => (
+                    <a
+                      key={idx}
+                      href={`#story-slide-${idx}`}
+                      className={`bullet-dot ${activeStorySlide === idx ? 'active' : ''}`}
+                      onClick={e => {
+                        e.preventDefault();
+                        setActiveStorySlide(idx);
+                      }}
+                      title={`Go to community photo ${idx + 1}`}
+                      aria-label={`Go to community photo ${idx + 1}`}
+                    >
+                      <span className="sr-only">Go to community photo {idx + 1}</span>
+                    </a>
+                  ))}
                 </div>
               </div>
             </div>
