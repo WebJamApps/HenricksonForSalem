@@ -157,12 +157,66 @@ describe('App', () => {
     expect(bullet2).not.toHaveClass('active');
     expect(bullet6).toHaveClass('active');
 
-    // Advance timer by 5 seconds to rotate back to slide 1 (wrapping from 6 to 1)
+    // Advance timer by 8 seconds to rotate back to slide 1 (wrapping from 6 to 1)
     act(() => {
-      vi.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(8000);
     });
     expect(bullet6).not.toHaveClass('active');
     expect(bullet1).toHaveClass('active');
+
+    vi.useRealTimers();
+  });
+
+  it('supports rotating story photo slideshow automatically and manually via bullets and nav buttons', () => {
+    vi.useFakeTimers();
+    render(<App />);
+
+    expect(
+      screen.getByText('Mark Henrickson — Dedicated to serving Salem families and businesses.'),
+    ).toBeInTheDocument();
+
+    const storyBullet1 = screen.getByLabelText('Go to community photo 1');
+    const storyBullet2 = screen.getByLabelText('Go to community photo 2');
+    const storyBullet9 = screen.getByLabelText('Go to community photo 9');
+    const prevBtn = screen.getByLabelText('Previous community photo');
+    const nextBtn = screen.getByLabelText('Next community photo');
+
+    expect(storyBullet1).toHaveClass('active');
+    expect(storyBullet2).not.toHaveClass('active');
+
+    // Click bullet 2 (Family)
+    fireEvent.click(storyBullet2);
+    expect(storyBullet1).not.toHaveClass('active');
+    expect(storyBullet2).toHaveClass('active');
+    expect(screen.getByText(/Family — Celebrating Mark’s father/i)).toBeInTheDocument();
+
+    // Click Next button -> slide 3 (Rotary Christmas for Kids)
+    fireEvent.click(nextBtn);
+    expect(screen.getByLabelText('Go to community photo 3')).toHaveClass('active');
+    expect(screen.getByText(/Rotary Christmas for Kids/i)).toBeInTheDocument();
+
+    // Click Prev button -> back to slide 2
+    fireEvent.click(prevBtn);
+    expect(storyBullet2).toHaveClass('active');
+
+    // Click Prev button from slide 2 -> slide 1
+    fireEvent.click(prevBtn);
+    expect(storyBullet1).toHaveClass('active');
+
+    // Click Prev button from slide 1 -> wraps to slide 9
+    fireEvent.click(prevBtn);
+    expect(storyBullet9).toHaveClass('active');
+    expect(screen.getByText(/1971 Andrew Lewis Football Team/i)).toBeInTheDocument();
+
+    // Advance timer by 8 seconds to auto-rotate from slide 9 back to slide 1
+    act(() => {
+      vi.advanceTimersByTime(8000);
+    });
+    expect(storyBullet9).not.toHaveClass('active');
+    expect(storyBullet1).toHaveClass('active');
+    expect(
+      screen.getByText('Mark Henrickson — Dedicated to serving Salem families and businesses.'),
+    ).toBeInTheDocument();
 
     vi.useRealTimers();
   });
