@@ -176,7 +176,7 @@ export function App() {
     const timer = setInterval(() => {
       setActiveSlide(prev => (prev + 1) % 6);
       setActiveStorySlide(prev => (prev + 1) % storySlides.length);
-    }, 5000);
+    }, 8000);
     return () => clearInterval(timer);
   }, []);
 
@@ -428,7 +428,7 @@ export function App() {
               >
                 <img
                   src="/images/mark-community-1.png"
-                  alt="Mark Henrickson community event"
+                  alt="American flag representing community engagement"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -444,7 +444,7 @@ export function App() {
               >
                 <img
                   src="/images/mark-community-2.png"
-                  alt="Mark Henrickson civic service"
+                  alt="Mark Henrickson Candidate for City Council Moving Salem Forward campaign sign"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -460,7 +460,7 @@ export function App() {
               >
                 <img
                   src="/images/458700220_3378744905766915_7642014917741338566_n.jpg"
-                  alt="Mark Henrickson community outreach"
+                  alt="Mark Henrickson with a young child holding a plush toy during community outreach"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -476,7 +476,7 @@ export function App() {
               >
                 <img
                   src="/images/458715970_3378775542430518_6413879525219153400_n.jpg"
-                  alt="Mark Henrickson meeting residents"
+                  alt="Mark Henrickson with volunteers at a construction project"
                   className="slide-img"
                 />
                 <div className="slide-overlay">
@@ -492,7 +492,7 @@ export function App() {
               >
                 <img
                   src="/images/Mark - old pic.jpg"
-                  alt="Mark Henrickson Salem community background"
+                  alt="Mark Henrickson in a suit and tie smiling"
                   className="slide-img"
                 />
                 <div className="slide-overlay">

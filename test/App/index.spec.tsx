@@ -157,9 +157,9 @@ describe('App', () => {
     expect(bullet2).not.toHaveClass('active');
     expect(bullet6).toHaveClass('active');
 
-    // Advance timer by 5 seconds to rotate back to slide 1 (wrapping from 6 to 1)
+    // Advance timer by 8 seconds to rotate back to slide 1 (wrapping from 6 to 1)
     act(() => {
-      vi.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(8000);
     });
     expect(bullet6).not.toHaveClass('active');
     expect(bullet1).toHaveClass('active');
@@ -208,9 +208,9 @@ describe('App', () => {
     expect(storyBullet9).toHaveClass('active');
     expect(screen.getByText(/1971 Andrew Lewis Football Team/i)).toBeInTheDocument();
 
-    // Advance timer by 5 seconds to auto-rotate from slide 9 back to slide 1
+    // Advance timer by 8 seconds to auto-rotate from slide 9 back to slide 1
     act(() => {
-      vi.advanceTimersByTime(5000);
+      vi.advanceTimersByTime(8000);
     });
     expect(storyBullet9).not.toHaveClass('active');
     expect(storyBullet1).toHaveClass('active');
