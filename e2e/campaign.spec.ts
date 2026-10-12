@@ -20,11 +20,20 @@ test.describe('Campaign Site - Desktop', () => {
     await expect(heroTitle).toBeVisible();
     await expect(heroTitle).toContainText('Mark Henrickson');
 
-    // Footer disclosure and Facebook link present
+    // Footer disclosure and social links present
     const disclosure = page.locator('.disclosure-box');
     await expect(disclosure).toBeVisible();
     const facebookLink = page.locator('a[aria-label="Facebook"]');
     await expect(facebookLink).toBeVisible();
+    await expect(facebookLink).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=61592284724059');
+    await expect(facebookLink).toHaveAttribute('target', '_blank');
+    await expect(facebookLink).toHaveAttribute('rel', 'noopener noreferrer');
+
+    const instagramLink = page.locator('a[aria-label="Instagram"]');
+    await expect(instagramLink).toBeVisible();
+    await expect(instagramLink).toHaveAttribute('href', 'https://instagram.com/markhenricksonforsalemva');
+    await expect(instagramLink).toHaveAttribute('target', '_blank');
+    await expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
   test('should open, validate, and close the yard sign request modal dialog', async ({ page, isMobile }) => {
@@ -160,9 +169,21 @@ test.describe('Campaign Site - Mobile', () => {
     const heroTitle = page.locator('.hero-title');
     await expect(heroTitle).toBeVisible();
 
-    // Footer disclosure present
+    // Footer disclosure and social links present
     const disclosure = page.locator('.disclosure-box');
     await expect(disclosure).toBeVisible();
+
+    const facebookLink = page.locator('a[aria-label="Facebook"]');
+    await expect(facebookLink).toBeVisible();
+    await expect(facebookLink).toHaveAttribute('href', 'https://www.facebook.com/profile.php?id=61592284724059');
+    await expect(facebookLink).toHaveAttribute('target', '_blank');
+    await expect(facebookLink).toHaveAttribute('rel', 'noopener noreferrer');
+
+    const instagramLink = page.locator('a[aria-label="Instagram"]');
+    await expect(instagramLink).toBeVisible();
+    await expect(instagramLink).toHaveAttribute('href', 'https://instagram.com/markhenricksonforsalemva');
+    await expect(instagramLink).toHaveAttribute('target', '_blank');
+    await expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer');
   });
 
   test('should support mobile hamburger menu, links, escape key and theme toggling with persistence', async ({ page, isMobile }) => {

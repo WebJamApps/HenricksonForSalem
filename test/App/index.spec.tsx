@@ -122,7 +122,7 @@ describe('App', () => {
     expect(screen.queryByRole('dialog')).toBeNull();
   });
 
-  it('renders the footer disclosure and official campaign Facebook link', () => {
+  it('renders the footer disclosure and official campaign social links (Facebook and Instagram)', () => {
     render(<App />);
     const facebookLink = screen.getByRole('link', { name: 'Facebook' });
     expect(facebookLink).toBeInTheDocument();
@@ -131,8 +131,14 @@ describe('App', () => {
     expect(facebookLink).toHaveAttribute('rel', 'noopener noreferrer');
     expect(facebookLink).toHaveAttribute('aria-label', 'Facebook');
 
+    const instagramLink = screen.getByRole('link', { name: 'Instagram' });
+    expect(instagramLink).toBeInTheDocument();
+    expect(instagramLink).toHaveAttribute('href', 'https://instagram.com/markhenricksonforsalemva');
+    expect(instagramLink).toHaveAttribute('target', '_blank');
+    expect(instagramLink).toHaveAttribute('rel', 'noopener noreferrer');
+    expect(instagramLink).toHaveAttribute('aria-label', 'Instagram');
+
     expect(screen.queryByLabelText('YouTube')).toBeNull();
-    expect(screen.queryByLabelText('Instagram')).toBeNull();
     expect(screen.getByText('PAID FOR BY HENRICKSON FOR SALEM')).toBeInTheDocument();
   });
 
